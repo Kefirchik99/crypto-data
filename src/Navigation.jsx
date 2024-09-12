@@ -1,11 +1,22 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { useNavigate } from "react-router-dom";
 
 function Navigation() {
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        navigate("/SearchResultsTbl");
+    };
+
+    const goToHomePage = () => {
+        navigate("/");
+    };
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary mb-4">
             <Container fluid>
@@ -14,10 +25,12 @@ function Navigation() {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
+                        style={{ maxHeight: "100px" }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
+                        <Nav.Link onClick={goToHomePage} href="#action1">
+                            Home
+                        </Nav.Link>
                         <Nav.Link href="#action2">Link</Nav.Link>
                         <NavDropdown title="Link" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -40,7 +53,9 @@ function Navigation() {
                             className="me-2"
                             aria-label="Search"
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button variant="outline-success" onClick={handleSearch}>
+                            Search
+                        </Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>
