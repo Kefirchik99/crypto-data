@@ -5,6 +5,7 @@ import ListCoins from './ListCoins';
 import CoinPage from './CoinPage';
 import GlobalData from './GlobalData';
 import SearchResult from './SearchResult';
+import Converter from './Converter';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       {/* <ListCoins /> */}
       {/* <CoinPage /> */}
       <SearchResult />
+      <Converter />
     </Container>
   );
 }
