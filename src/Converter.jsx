@@ -8,61 +8,52 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
 const initialState = {
-    from: 10,
-    to: 50,
-};
-
-const initialCoin = {
-    from: '1',
-    to: '2',
+    fromValue: 10,
+    toValue: 50,
+    fromCoin: '1',
+    toCoin: '2',
 };
 
 function Converter() {
-    const [values, SetValues] = React.useState(initialState);
-    const [leftToRight, setLeftToRight] = React.useState(true);
-    const [coins, SetCoins] = React.useState(initialCoin);
+    const [state, setState] = React.useState(initialState);
 
     const handleSelectChange = (coinType, event) => {
         const newValue = event.target.value;
-        SetCoins((prevCoins) => ({
-            ...prevCoins,
+        setState((prevState) => ({
+            ...prevState,
             [coinType]: newValue,
         }));
     };
 
-
     const handleClick = () => {
+        const { fromCoin, toCoin, fromValue, toValue } = state;
 
-        if (coins.to === '0' || coins.from === "0") {
+        if (fromCoin === '0' || toCoin === '0') {
             alert("Please select coin!");
             return;
-        } else if (coins.to === coins.from) {
+        } else if (fromCoin === toCoin) {
             alert("Please select valid coin!");
             return;
         }
 
-        SetValues({
-            from: values.to,
-            to: values.from,
-        })
-        SetCoins({
-            from: coins.to,
-            to: coins.from,
-        });
-
-        setLeftToRight(!leftToRight);
-
-
+        setState((prevState) => ({
+            ...prevState,
+            fromValue: toValue,
+            toValue: fromValue,
+            fromCoin: toCoin,
+            toCoin: fromCoin,
+        }));
     };
+
     return (
         <Row className="g-2" style={{ fontSize: '0.75rem', padding: '5px', width: '500px', marginLeft: '0' }}>
             <Col md>
                 <InputGroup>
                     <FloatingLabel controlId="fromInput" label="From">
-                        <Form.Control type="text" placeholder="0" value={values.from} />
+                        <Form.Control type="text" placeholder="0" value={state.fromValue} />
                     </FloatingLabel>
                     <FloatingLabel controlId="from" label="Select Coin">
-                        <Form.Select value={coins.from} onChange={(e) => handleSelectChange('from', e)}>
+                        <Form.Select value={state.fromCoin} onChange={(e) => handleSelectChange('fromCoin', e)}>
                             <option value="0"></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -78,14 +69,13 @@ function Converter() {
                     style={{ fontSize: '1.8rem', color: 'blue' }}
                 />
             </Col>
-
             <Col md>
                 <InputGroup>
                     <FloatingLabel controlId="toInput" label="To">
-                        <Form.Control type="text" placeholder="0" value={values.to} />
+                        <Form.Control type="text" placeholder="0" value={state.toValue} />
                     </FloatingLabel>
                     <FloatingLabel controlId="to" label="Select Coin">
-                        <Form.Select value={coins.to} onChange={(e) => handleSelectChange('to', e)}>
+                        <Form.Select value={state.toCoin} onChange={(e) => handleSelectChange('toCoin', e)}>
                             <option value="0"></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -95,7 +85,6 @@ function Converter() {
                 </InputGroup>
             </Col>
         </Row>
-
     );
 }
 
