@@ -12,22 +12,52 @@ const initialState = {
     to: 50,
 };
 
+const initialCoin = {
+    from: '1',
+    to: '2',
+};
+
 function Converter() {
     const [values, SetValues] = React.useState(initialState);
     const [leftToRight, setLeftToRight] = React.useState(true);
+    const [coins, SetCoins] = React.useState(initialCoin);
+
+    const handleSelectChange = (coinType, event) => {
+        const newValue = event.target.value;
+        SetCoins((prevCoins) => ({
+            ...prevCoins,
+            [coinType]: newValue,
+        }));
+    };
+
 
     const handleClick = () => {
+
+        if (coins.to === '0' || coins.from === "0") {
+            alert("Please select coin!");
+            return;
+        } else if (coins.to === coins.from) {
+            alert("Please select valid coin!");
+            return;
+        }
+
         SetValues({
             from: values.to,
             to: values.from,
+        })
+        SetCoins({
+            from: coins.to,
+            to: coins.from,
         });
 
         setLeftToRight(!leftToRight);
+
+
     };
     return (
-        <Row className="g-2">
+        <Row className="g-2" style={{ fontSize: '0.85rem', padding: '5px' }}>
             <Col md>
-                <InputGroup>
+                <InputGroup style={{ fontSize: '0.85rem' }}>
                     <FloatingLabel controlId="fromInput" label="From">
                         <Form.Control type="text" placeholder="0" value={values.from}
                             defaultValue={values.from}
@@ -35,17 +65,23 @@ function Converter() {
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="from"
-                        label="Coin">
-                        <Form.Select>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        label="Select Coin">
+                        <Form.Select value={coins.from} onChange={(e) => handleSelectChange('from', e)}>
+
+                            <option id='zero' value="0"></option>
+                            <option id='one' value="1">One</option>
+                            <option id='two' value="2">Two</option>
+                            <option id='three' value="3">Three</option>
                         </Form.Select>
                     </FloatingLabel>
                 </InputGroup>
             </Col>
-            <Col>
-                <FontAwesomeIcon icon={faArrowsRotate} onClick={handleClick} />
+            <Col md={1} className="d-flex justify-content-center">
+                <FontAwesomeIcon
+                    icon={faArrowsRotate}
+                    onClick={handleClick}
+                    style={{ fontSize: '1.8rem', color: 'blue', border: '' }}
+                />
             </Col>
             <Col md>
                 <InputGroup>
@@ -56,8 +92,9 @@ function Converter() {
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="to"
-                        label="Coin">
-                        <Form.Select>
+                        label="Select Coin">
+                        <Form.Select value={coins.to} onChange={(e) => handleSelectChange('to', e)}>
+                            <option value="0"></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
