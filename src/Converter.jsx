@@ -55,44 +55,36 @@ function Converter() {
 
     };
     return (
-        <Row className="g-2" style={{ fontSize: '0.85rem', padding: '5px' }}>
+        <Row className="g-2" style={{ fontSize: '0.75rem', padding: '5px', width: '500px', marginLeft: '0' }}>
             <Col md>
-                <InputGroup style={{ fontSize: '0.85rem' }}>
+                <InputGroup>
                     <FloatingLabel controlId="fromInput" label="From">
-                        <Form.Control type="text" placeholder="0" value={values.from}
-                            defaultValue={values.from}
-                        />
+                        <Form.Control type="text" placeholder="0" value={values.from} />
                     </FloatingLabel>
-                    <FloatingLabel
-                        controlId="from"
-                        label="Select Coin">
+                    <FloatingLabel controlId="from" label="Select Coin">
                         <Form.Select value={coins.from} onChange={(e) => handleSelectChange('from', e)}>
-
-                            <option id='zero' value="0"></option>
-                            <option id='one' value="1">One</option>
-                            <option id='two' value="2">Two</option>
-                            <option id='three' value="3">Three</option>
+                            <option value="0"></option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
                         </Form.Select>
                     </FloatingLabel>
                 </InputGroup>
             </Col>
-            <Col md={1} className="d-flex justify-content-center">
+            <Col md={1} className="d-flex align-items-center justify-content-center">
                 <FontAwesomeIcon
                     icon={faArrowsRotate}
                     onClick={handleClick}
-                    style={{ fontSize: '1.8rem', color: 'blue', border: '' }}
+                    style={{ fontSize: '1.8rem', color: 'blue' }}
                 />
             </Col>
+
             <Col md>
                 <InputGroup>
                     <FloatingLabel controlId="toInput" label="To">
-                        <Form.Control type="text" placeholder="0" value={values.to}
-                            defaultValue={values.to}
-                        />
+                        <Form.Control type="text" placeholder="0" value={values.to} />
                     </FloatingLabel>
-                    <FloatingLabel
-                        controlId="to"
-                        label="Select Coin">
+                    <FloatingLabel controlId="to" label="Select Coin">
                         <Form.Select value={coins.to} onChange={(e) => handleSelectChange('to', e)}>
                             <option value="0"></option>
                             <option value="1">One</option>
@@ -103,6 +95,7 @@ function Converter() {
                 </InputGroup>
             </Col>
         </Row>
+
     );
 }
 
