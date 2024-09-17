@@ -19,28 +19,58 @@ const initialState = {
 };
 
 function Converter() {
-    const [values, SetValues] = React.useState(initialState);
-    const [leftToRight, setLeftToRight] = React.useState(true);
+    const [values, setValues] = React.useState(initialState);
+
 
     const handleClick = () => {
-        SetValues({
+        setValues({
             from: values.to,
             to: values.from,
         });
-    };
+    }
+
+    const handleOnChange = (event) => {
+        const value = event.target.value;
+        const field = event.target.name;
+
+        setValues({
+            ...values,
+            [field]: {
+                ...values[field],
+                amount: value,
+            }
+        });
+    }
+    const handleOnSelect = (event) => {
+        const value = event.target.value;
+        const field = event.target.name;
+
+        setValues({
+            ...values,
+            [field]: {
+                ...values[field],
+                coin: value,
+            }
+        });
+    }
+
     return (
         <Row className="g-2">
             <Col md>
                 <InputGroup>
                     <FloatingLabel controlId="fromInput" label="From">
-                        <Form.Control type="text" placeholder="0" value={values.from.amount}
-                            defaultValue={values.from.amount}
+                        <Form.Control
+                            name="from"
+                            type="text"
+                            placeholder="0"
+                            value={values.from.amount}
+                            onChange={handleOnChange}
                         />
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="from"
                         label="Coin">
-                        <Form.Select value={values.from.coin}>
+                        <Form.Select value={values.from.coin} name="from" onChange={handleOnSelect}>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -54,14 +84,18 @@ function Converter() {
             <Col md>
                 <InputGroup>
                     <FloatingLabel controlId="toInput" label="To">
-                        <Form.Control type="text" placeholder="0" value={values.to.amount}
-                            defaultValue={values.to.amount}
+                        <Form.Control
+                            name="to"
+                            type="text"
+                            placeholder="0"
+                            value={values.to.amount}
+                            onChange={handleOnChange}
                         />
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="to"
                         label="Coin">
-                        <Form.Select value={values.to.coin}>
+                        <Form.Select value={values.to.coin} name="to" onChange={handleOnSelect}>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
