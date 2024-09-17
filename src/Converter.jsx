@@ -36,8 +36,8 @@ function Converter() {
             return;
         }
 
-        setState((prevState) => ({
-            ...prevState,
+        setState(() => ({
+
             fromValue: toValue,
             toValue: fromValue,
             fromCoin: toCoin,
