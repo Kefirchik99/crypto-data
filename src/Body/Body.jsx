@@ -6,7 +6,7 @@ function Body() {
     return (
         <>
             <GlobalData />
-            {/* <ListCoins /> */}
+            <ListCoins />
             <CoinPage />
         </>
     );

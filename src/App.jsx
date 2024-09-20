@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss'
 import Container from 'react-bootstrap/Container';
 import Header from './Header';
 import Body from './Body';

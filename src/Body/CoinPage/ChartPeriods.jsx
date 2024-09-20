@@ -4,7 +4,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const periods = [
     '1d', '7d', '30d', '1q', '1y', 'YTD', 'Max'
-]
+];
 
 function ChartPeriods() {
     const [selected, setSelected] = React.useState(periods[3]);
@@ -25,7 +25,7 @@ function ChartPeriods() {
             ))};
 
         </ButtonGroup>
-    );
-}
+    )
+};
 
 export default ChartPeriods;
