@@ -1,11 +1,13 @@
 import GlobalData from "./GlobalData";
 import ListCoins from './ListCoins';
+import CoinPage from "./CoinPage"
 
 function Body() {
     return (
         <>
             <GlobalData />
-            <ListCoins />
+            {/* <ListCoins /> */}
+            <CoinPage />
         </>
     );
 }
