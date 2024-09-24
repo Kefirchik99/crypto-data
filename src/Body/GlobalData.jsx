@@ -27,6 +27,6 @@ function GlobalData() {
             </tbody>
         </Table>
     );
-}
+};
 
 export default GlobalData;
