@@ -2,12 +2,11 @@ import GlobalData from "./GlobalData";
 import ListCoins from './ListCoins';
 
 
-function Body() {
+function Body(props) {
     return (
         <>
             <GlobalData />
-
-            <ListCoins />
+            <ListCoins {...props} />
 
         </>
     );
