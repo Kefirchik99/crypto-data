@@ -6,3 +6,8 @@ export const getCoinList = async () => {
     return await response.json();
 };
 
+export const getGlobalData = async () => {
+    const response = await fetch(`${apiUrl}/global`);
+
+    return await response.json();
+};

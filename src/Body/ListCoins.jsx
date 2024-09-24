@@ -3,17 +3,18 @@ import Table from 'react-bootstrap/Table';
 import { getCoinList } from '../services/api';
 
 function ListCoins() {
-  const { coinList, setCoinList } = React.useState([]);
+  const [coinList, setCoinList] = React.useState([]);
+
   React.useEffect(() => {
-    getCoinList().then((data) => {
+    getCoinList().then(data => {
       setCoinList(data.slice(0, 100));
-    })
+    });
   }, []);
 
   return (
     <Table striped bordered hover >
       <thead>
-        <tr key={coin.rank}>
+        <tr>
           <th>#</th>
           <th>Name</th>
           <th>Price</th>
@@ -27,7 +28,7 @@ function ListCoins() {
       </thead>
       <tbody>
         {coinList.map(coin => (
-          <tr>
+          <tr key={coin.rank}>
             <td>{coin.rank}</td>
             <td>{coin.name}</td>
             <td></td>
