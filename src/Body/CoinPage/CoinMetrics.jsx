@@ -1,9 +1,9 @@
 import Table from 'react-bootstrap/Table';
 
-function CoinMetrics() {
+function CoinMetrics({ name, symbol }) {
     return (
         <>
-            <h3>Bitcoin (BTC) Metrics</h3>
+            <h3>{name} ({symbol}) Metrics</h3>
             <Table striped bordered hover>
                 <tbody>
                     <tr>
