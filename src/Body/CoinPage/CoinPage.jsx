@@ -21,7 +21,6 @@ function CoinPage() {
     React.useEffect(() => {
         getCoinById('btc-bitcoin').then(setCoinData);
     }, []);
-    console.log(coinData);
     return (
         <>
             <CoinPriceSection />
