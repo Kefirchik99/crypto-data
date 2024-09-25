@@ -15,10 +15,11 @@ export const getGlobalData = async () => {
     return await response.json();
 };
 
-export const getCoinById = async (id) => {
-    const response = await fetch(`${apiUrl}/coins/${id}`)
+export const getCoinById = async (id, currency) => {
+    const params = new URLSearchParams({
+        quotes: currency,
+    });
+    const response = await fetch(`${apiUrl}/tickers/${id}?${params}`);
     return await response.json();
 };
-
-
 

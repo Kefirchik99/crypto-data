@@ -7,6 +7,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { currencies } from '../constants';
 
 function Navigation({ selectedCurrency, setSelectedCurrency }) {
+
+    const symbol = Object.entries(currencies).find(
+        ([sym, currency]) => currency === selectedCurrency
+    )?.[0];
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary mb-4">
             <Container fluid>
@@ -20,13 +25,16 @@ function Navigation({ selectedCurrency, setSelectedCurrency }) {
                     >
                         <Nav.Link href="#action1">Home</Nav.Link>
                         <Nav.Link href="#action2">Link</Nav.Link>
-                        <NavDropdown title="Currencies" id="navbarScrollingDropdown">
-                            {currencies.map(currency => (
-                                <NavDropdown.Item active={selectedCurrency === currency}
+                        <NavDropdown title={`${symbol} - ${selectedCurrency}`} id="navbarScrollingDropdown">
+                            {Object.entries(currencies).map(([symbol, currency]) => (
+                                <NavDropdown.Item
+                                    active={selectedCurrency === currency}
                                     key={currency}
                                     onClick={() => setSelectedCurrency(currency)}
                                 >
-                                    {currency}</NavDropdown.Item>))}
+                                    {symbol} - {currency}
+                                </NavDropdown.Item>
+                            ))}
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex">

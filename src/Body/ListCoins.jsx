@@ -3,10 +3,16 @@ import Table from 'react-bootstrap/Table';
 import { getCoinList } from '../services/api';
 import Alert from 'react-bootstrap/Alert';
 import PriceNumber from './PriceNumber';
+import { currencies } from '../constants';
 
 function ListCoins({ selectedCurrency }) {
   const [coinList, setCoinList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+
+  // Find the symbol corresponding to the selected currency
+  const symbol = Object.entries(currencies).find(
+    ([sym, currency]) => currency === selectedCurrency
+  )?.[0];
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -16,10 +22,13 @@ function ListCoins({ selectedCurrency }) {
     });
   }, [selectedCurrency]);
 
+  if (isLoading)
+    return (
+      <Alert key={"info"} variant={"info"}>
+        Loading
+      </Alert>
+    );
 
-  if (isLoading) return (<Alert key={"info"} variant={"info"}>
-    Loading
-  </Alert>);
   return (
     <Table striped bordered hover >
       <thead>
@@ -33,7 +42,6 @@ function ListCoins({ selectedCurrency }) {
           <th>30 Days</th>
           <th>Volume (24H)</th>
           <th>Marketcap</th>
-
         </tr>
       </thead>
       <tbody>
@@ -41,13 +49,62 @@ function ListCoins({ selectedCurrency }) {
           <tr key={coin.rank}>
             <td>{coin.rank}</td>
             <td>{coin.name}</td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.price} /></td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_1h}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_24h}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_7d}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_30d}</td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.volume_24h} /></td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.market_cap} /></td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.price}
+                symbol={symbol}
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.percent_change_1h}
+                suffix=" %"
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.percent_change_24h}
+                suffix=" %"
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.percent_change_7d}
+                suffix=" %"
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.percent_change_30d}
+                suffix=" %"
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.volume_24h}
+                symbol={symbol}
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
+            <td>
+              <PriceNumber
+                value={coin.quotes[selectedCurrency]?.market_cap}
+                symbol={symbol}
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </td>
           </tr>
         ))}
       </tbody>

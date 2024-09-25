@@ -1,4 +1,5 @@
-import './App.scss'
+// App.jsx
+import './App.scss';
 import Container from 'react-bootstrap/Container';
 import Header from './Header';
 import Body from './Body';
@@ -6,7 +7,7 @@ import React from 'react';
 import { currencies } from './constants';
 
 function App() {
-  const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0]);
+  const [selectedCurrency, setSelectedCurrency] = React.useState('USD'); // Set default currency
 
   return (
     <Container>

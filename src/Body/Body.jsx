@@ -1,13 +1,14 @@
+import CoinPage from "./CoinPage/CoinPage";
 import GlobalData from "./GlobalData";
 import ListCoins from './ListCoins';
 
 
-function Body(props) {
+function Body({ selectedCurrency }) {
     return (
         <>
             <GlobalData />
-            <ListCoins {...props} />
-
+            <CoinPage selectedCurrency={selectedCurrency} />
+            <ListCoins selectedCurrency={selectedCurrency} />
         </>
     );
 }
