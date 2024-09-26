@@ -1,7 +1,11 @@
 import { NumericFormat } from "react-number-format";
 
-const PriceNumber = ({ value }) => {
-    return (<NumericFormat value={value} thousandSeparator=" " displayType="text" prefix="$???" />
+const PriceNumber = ({ value, symbol }) => {
+    return (<NumericFormat
+        value={value}
+        thousandSeparator=" "
+        displayType="text"
+        prefix={symbol} />
     );
 };
 
