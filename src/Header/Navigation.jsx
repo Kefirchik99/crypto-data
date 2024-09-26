@@ -22,11 +22,12 @@ function Navigation({ selectedCurrency, setSelectedCurrency }) {
                         <Nav.Link href="#action2">Link</Nav.Link>
                         <NavDropdown title="Currencies" id="navbarScrollingDropdown">
                             {currencies.map(currency => (
-                                <NavDropdown.Item active={selectedCurrency === currency}
-                                    key={currency}
+                                <NavDropdown.Item active={selectedCurrency.name === currency.name}
+                                    key={currency.name}
                                     onClick={() => setSelectedCurrency(currency)}
                                 >
-                                    {currency}</NavDropdown.Item>))}
+                                    {currency.name} {currency.symbol}
+                                </NavDropdown.Item>))}
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex">

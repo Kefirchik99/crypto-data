@@ -10,7 +10,7 @@ function ListCoins({ selectedCurrency }) {
 
   React.useEffect(() => {
     setIsLoading(true);
-    getCoinList(selectedCurrency).then(data => {
+    getCoinList(selectedCurrency.name).then(data => {
       setCoinList(data.slice(0, 100));
       setIsLoading(false);
     });
@@ -41,13 +41,13 @@ function ListCoins({ selectedCurrency }) {
           <tr key={coin.rank}>
             <td>{coin.rank}</td>
             <td>{coin.name}</td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.price} /></td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_1h}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_24h}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_7d}</td>
-            <td>{coin.quotes[selectedCurrency]?.percent_change_30d}</td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.volume_24h} /></td>
-            <td><PriceNumber value={coin.quotes[selectedCurrency]?.market_cap} /></td>
+            <td><PriceNumber value={coin.quotes[selectedCurrency.name]?.price} symbol={selectedCurrency.symbol} /></td>
+            <td>{coin.quotes[selectedCurrency.name]?.percent_change_1h} </td>
+            <td>{coin.quotes[selectedCurrency.name]?.percent_change_24h}</td>
+            <td>{coin.quotes[selectedCurrency.name]?.percent_change_7d}</td>
+            <td>{coin.quotes[selectedCurrency.name]?.percent_change_30d}</td>
+            <td><PriceNumber value={coin.quotes[selectedCurrency.name]?.volume_24h} symbol={selectedCurrency.symbol} /></td>
+            <td><PriceNumber value={coin.quotes[selectedCurrency.name]?.market_cap} symbol={selectedCurrency.symbol} /></td>
           </tr>
         ))}
       </tbody>
