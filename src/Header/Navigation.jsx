@@ -5,8 +5,22 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { currencies } from '../constants';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navigation({ selectedCurrency, setSelectedCurrency }) {
+    const navigate = useNavigate();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const q = event.target.q.value;
+
+        if (!q) return;
+
+        navigate("/search/" + q);
+    };
+
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary mb-4">
             <Container fluid>
@@ -18,7 +32,7 @@ function Navigation({ selectedCurrency, setSelectedCurrency }) {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
+                        <Link to="/" className='nav-link'>Home</Link>
                         <Nav.Link href="#action2">Link</Nav.Link>
                         <NavDropdown title="Currencies" id="navbarScrollingDropdown">
                             {currencies.map(currency => (
@@ -30,18 +44,19 @@ function Navigation({ selectedCurrency, setSelectedCurrency }) {
                                 </NavDropdown.Item>))}
                         </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
+                    <Form className="d-flex" onSubmit={handleSubmit}>
                         <Form.Control
                             type="search"
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
+                            name="q"
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button type="submit" variant="outline-success">Search</Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 }
 
