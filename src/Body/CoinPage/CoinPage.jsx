@@ -11,13 +11,11 @@ import { getCoinById, getHistoricalData } from "../../services/api";
 import { periods } from "./constants";
 
 
-
 function CoinPage({ selectedCurrency }) {
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
     const [historicalData, setHistoricalData] = React.useState([]);
-    const [selectedPeriod, setSelectedPeriod] = React.useState(periods[0])
-
+    const [selectedPeriod, setSelectedPeriod] = React.useState(periods[0]);
 
     const handleShow = () => setChartModalShow(true);
     const handleClose = () => setChartModalShow(false);
@@ -31,25 +29,34 @@ function CoinPage({ selectedCurrency }) {
         getHistoricalData({
             id: 'btc-bitcoin',
             currency: selectedCurrency.name,
-            start: selectedPeriod.start,
+            start: selectedPeriod.start(),
             interval: selectedPeriod.interval,
-        }).then(setHistoricalData);
-    }, [selectedPeriod]);
-
-
+        }).then(data => setHistoricalData(
+            data?.map(({ timestamp, ...rest }) => ({
+                ...rest,
+                timestamp: moment(timestamp).format(selectedPeriod.format)
+            })
+            )));
+    }, [selectedPeriod, selectedCurrency]);
 
     return (
         <>
             <CoinPriceSection />
             <Row>
                 <Col md={4}>
-                    <CoinMetrics {...coinData} currency={selectedCurrency} />
+                    <CoinMetrics
+                        {...coinData}
+                        currency={selectedCurrency} />
                 </Col>
                 <Col md={8}>
-                    <CoinChart />
+                    <CoinChart data={historicalData} />
                     <Row>
                         <Col>
-                            <ChartPeriods selectedPeriod={selectedPeriod} setSelectedPeriod={setSelectedPeriod} />
+                            <ChartPeriods
+                                selectedPeriod={selectedPeriod}
+                                setSelectedPeriod={setSelectedPeriod}
+
+                            />
                         </Col>
                         <Col>
                             <Button onClick={handleShow} variant="primary">ZOOM IN</Button>
@@ -58,8 +65,11 @@ function CoinPage({ selectedCurrency }) {
                 </Col>
             </Row>
             <ChartModal show={chartModalShow} handleClose={handleClose}>
-                <CoinChart />
-                <ChartPeriods />
+                <CoinChart data={historicalData} />
+                <ChartPeriods
+                    selectedPeriod={selectedPeriod}
+                    setSelectedPeriod={setSelectedPeriod}
+                />
             </ChartModal>
         </>
     );
