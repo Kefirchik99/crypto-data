@@ -1,3 +1,5 @@
+import { RuleTester } from "eslint";
+
 const apiUrl = 'https://api.coinpaprika.com/v1'
 
 export const getCoinList = async (currency) => {
@@ -23,6 +25,19 @@ export const getCoinById = async (id, currency) => {
 
     return await response.json();
 };
+
+export const getHistoricalData = async ({ id, currency, start, interval }) => {
+    const params = new URLSearchParams({
+        quotes: currency,
+        start,
+        interval,
+
+    });
+
+    const response = await fetch(`${apiUrl}/tickers/${id}/historical?${params}`);
+
+    return await response.json();
+}
 
 
 
