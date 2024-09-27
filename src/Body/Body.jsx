@@ -7,10 +7,7 @@ function Body(props) {
     return (
         <>
             <GlobalData />
-
             <ListCoins {...props} />
-
-
         </>
     );
 }
