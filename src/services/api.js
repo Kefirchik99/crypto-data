@@ -1,5 +1,3 @@
-import { RuleTester } from "eslint";
-
 const apiUrl = 'https://api.coinpaprika.com/v1'
 
 export const getCoinList = async (currency) => {
@@ -31,18 +29,29 @@ export const getHistoricalData = async ({ id, currency, start, interval }) => {
         quotes: currency,
         start,
         interval,
-
     });
 
     const response = await fetch(`${apiUrl}/tickers/${id}/historical?${params}`);
 
     return await response.json();
-}
+};
 
 export const getSearch = async (q) => {
     const params = new URLSearchParams({
         q,
     });
     const response = await fetch(`${apiUrl}/search/?${params}`);
+    return await response.json();
+};
+
+
+export const getConverter = async ({ base_currency_id, quote_currency_id, amount }) => {
+    const params = new URLSearchParams({
+        base_currency_id,
+        quote_currency_id,
+        amount,
+    });
+
+    const response = await fetch(`${apiUrl}/price-converter?${params}`);
     return await response.json();
 };
