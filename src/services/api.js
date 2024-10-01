@@ -36,8 +36,14 @@ export const getHistoricalData = async ({ id, currency, start, interval }) => {
 
     const response = await fetch(`${apiUrl}/tickers/${id}/historical?${params}`);
 
-    return await response.json();
-}
+    const data = await response.json();
+
+    if (response.status !== 200 && 'error' in data) {
+        throw new Error(data.error);
+    }
+
+    return data;
+};
 
 export const getSearch = async (q) => {
     const params = new URLSearchParams({
