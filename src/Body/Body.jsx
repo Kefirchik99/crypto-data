@@ -3,6 +3,7 @@ import CoinPage from "./CoinPage";
 import ListCoins from './ListCoins';
 import { Route, Routes } from "react-router-dom";
 import SearchResult from "./SearchResult";
+import ErrorModal from "./ErrorModal";
 
 
 function Body(props) {
@@ -14,6 +15,7 @@ function Body(props) {
                 <Route path="/coin:coinID" element={<CoinPage {...props} />} />
                 <Route path="/search/:q" element={<SearchResult />} />
             </Routes>
+            <ErrorModal />
         </>
     );
 };

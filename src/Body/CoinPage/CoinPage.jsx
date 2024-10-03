@@ -12,15 +12,18 @@ import { periods } from "./constants";
 import moment from "moment";
 import { useParams } from "react-router-dom";
 import Converter from "./Converter";
-import ErrorModal from "../ErrorModal";
+import { useSelector, useDispatch } from "react-redux";
+import { setErrorMessage } from "../../services/store";
 
 
-function CoinPage({ selectedCurrency }) {
+function CoinPage() {
+    const dispatch = useDispatch();
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
     const [historicalData, setHistoricalData] = React.useState([]);
     const [selectedPeriod, setSelectedPeriod] = React.useState(periods[0]);
-    const [errorMessage, setErrorMessage] = React.useState(null);
+
+    const selectedCurrency = useSelector((state) => state.selectedCurrency);
 
     const { coinId } = useParams();
 
@@ -44,9 +47,13 @@ function CoinPage({ selectedCurrency }) {
                 timestamp: moment(timestamp).format(selectedPeriod.format)
             }))
         )
-        ).catch(error => setErrorMessage(
-            "Historical data is not available at the moment. Error: " +
-            error.toString()));
+        ).catch(error =>
+            dispatch(
+                setErrorMessage(
+                    "Historical data is not available at the moment. Error: " +
+                    error.toString())
+            )
+        )
     }, [selectedPeriod, selectedCurrency, coinId]);
 
     return (
@@ -66,7 +73,6 @@ function CoinPage({ selectedCurrency }) {
                             <ChartPeriods
                                 selectedPeriod={selectedPeriod}
                                 setSelectedPeriod={setSelectedPeriod}
-
                             />
                         </Col>
                         <Col>
@@ -82,11 +88,6 @@ function CoinPage({ selectedCurrency }) {
                     setSelectedPeriod={setSelectedPeriod}
                 />
             </ChartModal>
-            <ErrorModal
-                errorMessage={errorMessage}
-                show={!!errorMessage}
-                handleClose={() => setErrorMessage(null)}
-            />
         </>
     );
 };
