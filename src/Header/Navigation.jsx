@@ -36,8 +36,12 @@ function Navigation() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Link to="/" className='nav-link'>Home</Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
+                        <Link to="/" className='nav-link'>
+                            Home
+                        </Link>
+                        <Link to="/exchanges" className="nav-link">
+                            Exchanges
+                        </Link>
                         <NavDropdown title="Currencies" id="navbarScrollingDropdown">
                             {currencies.map(currency => (
                                 <NavDropdown.Item active={selectedCurrency.name === currency.name}
