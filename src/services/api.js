@@ -52,3 +52,22 @@ export const getSearch = async (q) => {
     const response = await fetch(`${apiUrl}/search/?${params}`);
     return await response.json();
 };
+
+
+export const getPriceConverter = async (params) => {
+    const queryParams = new URLSearchParams({
+        base_currency_id: baseCurrency,
+        qiote_currency_id: quoteCurrency,
+        amount,
+    });
+
+    const response = await fetch(`${apiUrl}/price-converter?${queryParams}`);
+
+    const data = await response.json();
+
+    if (response.status !== 200 && 'error' in data) {
+        throw new Error(data.error);
+    }
+
+    return data;
+};
