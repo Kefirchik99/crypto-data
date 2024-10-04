@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import Converter from "./Converter";
 import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage } from "../../services/store";
+import { BodyContext } from "../../providers/BodyProvider";
 
 
 function CoinPage() {
@@ -23,6 +24,8 @@ function CoinPage() {
     const [historicalData, setHistoricalData] = React.useState([]);
     const [selectedPeriod, setSelectedPeriod] = React.useState(periods[0]);
 
+    const { setHistoryLog } = React.useContext(BodyContext);
+
     const selectedCurrency = useSelector((state) => state.selectedCurrency);
 
     const { coinId } = useParams();
@@ -31,7 +34,16 @@ function CoinPage() {
     const handleClose = () => setChartModalShow(false);
 
     React.useEffect(() => {
-        getCoinById(coinId, selectedCurrency.name).then(setCoinData);
+        getCoinById(coinId, selectedCurrency.name).then((data) => {
+            setHistoryLog((prevState) => [
+                ...prevState.filter((log) => log.id !== coinId),
+                {
+                    id: coinId,
+                    name: data.name,
+                }
+            ])
+            setCoinData(data)
+        })
 
     }, [selectedCurrency, coinId]);
 
@@ -41,19 +53,21 @@ function CoinPage() {
             currency: selectedCurrency.name,
             start: selectedPeriod.start(),
             interval: selectedPeriod.interval,
-        }).then(data => setHistoricalData(
-            data?.map(({ timestamp, ...rest }) => ({
-                ...rest,
-                timestamp: moment(timestamp).format(selectedPeriod.format)
-            }))
-        )
-        ).catch(error =>
-            dispatch(
-                setErrorMessage(
-                    "Historical data is not available at the moment. Error: " +
-                    error.toString())
+        }).then(data => {
+            setHistoricalData(
+                data?.map(({ timestamp, ...rest }) => ({
+                    ...rest,
+                    timestamp: moment(timestamp).format(selectedPeriod.format)
+                }))
             )
-        )
+        })
+            .catch(error =>
+                dispatch(
+                    setErrorMessage(
+                        "Historical data is not available at the moment. Error: " +
+                        error.toString())
+                )
+            )
     }, [selectedPeriod, selectedCurrency, coinId]);
 
     return (

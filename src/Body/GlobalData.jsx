@@ -1,9 +1,12 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { getGlobalData } from '../services/api';
+import { BodyContext } from '../providers/BodyProvider';
 
 function GlobalData() {
     const [globalData, setGlobalData] = React.useState([]);
+
+    const { exchangeList } = React.useContext(BodyContext);
 
     React.useEffect(() => {
         getGlobalData().then(setGlobalData);
@@ -23,6 +26,10 @@ function GlobalData() {
                 <tr>
                     <td>Market Cap:</td>
                     <td>{globalData.market_cap_usd} $</td>
+                </tr>
+                <tr>
+                    <td>Exchanges count</td>
+                    <td>{exchangeList.length}</td>
                 </tr>
             </tbody>
         </Table>
