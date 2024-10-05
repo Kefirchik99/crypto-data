@@ -1,7 +1,7 @@
 import React from 'react';
 import { getExchangeList } from '../services/api';
 
-const BodyContext = React.createContext();
+export const BodyContext = React.createContext();
 
 function BodyProvider({ children }) {
     const [historyLog, setHistoryLog] = React.useState([]);
