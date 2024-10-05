@@ -1,4 +1,3 @@
-import { RuleTester } from "eslint";
 
 const apiUrl = 'https://api.coinpaprika.com/v1'
 

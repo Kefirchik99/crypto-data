@@ -1,4 +1,3 @@
-
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { getPriceConverter } from "../../services/api";
 import { useSelector } from "react-redux";
+import lodash from 'lodash';
 
 const initialState = {
     from: {
@@ -27,24 +27,25 @@ function Converter() {
 
     const coinList = useSelector((state) => state.coinList);
 
-    React.useEffect(() => {
-        (async () => {
-            // immediately invoked function
-            const data = await getPriceConverter({
-                baseCurrency: values.from.coin,
-                quoteCurrency: values.to.coin,
-                amount: values.from.amount,
-            });
+    const debounceFetch =
 
-            setValues({
-                ...values,
-                to: {
-                    ...values.to,
-                    amount: data.price,
-                },
-            });
-        })();
-    }, [values.from.amount, values.from.coin, values.to.coin]);
+        React.useEffect(() => {
+            lodash.debounce(async () => {
+                const data = await getPriceConverter({
+                    baseCurrency: values.from.coin,
+                    quoteCurrency: values.to.coin,
+                    amount: values.from.amount,
+                });
+
+                setValues({
+                    ...values,
+                    to: {
+                        ...values.to,
+                        amount: data.price,
+                    },
+                });
+            }, 1000);
+        }, [values.from.amount, values.from.coin, values.to.coin]);
 
     const handleClick = () => {
         setValues({
