@@ -17,7 +17,6 @@ import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
 
 function CoinPage() {
-
     const dispatch = useDispatch();
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
@@ -34,17 +33,25 @@ function CoinPage() {
     const handleClose = () => setChartModalShow(false);
 
     React.useEffect(() => {
-        getCoinById(coinId, selectedCurrency.name).then((data) => {
-            setHistoryLog((prevState) => [
-                ...prevState.filter((log) => log.id !== coinId),
-                {
-                    id: coinId,
-                    name: data.name,
-                },
-            ]);
-            setCoinData(data);
-        });
-    }, [selectedCurrency, coinId]);
+        getCoinById(coinId, selectedCurrency.name)
+            .then((data) => {
+                setHistoryLog((prevState) => [
+                    ...prevState.filter((log) => log.id !== coinId),
+                    {
+                        id: coinId,
+                        name: data.name,
+                    },
+                ]);
+                setCoinData(data);
+            })
+            .catch((error) =>
+                dispatch(
+                    setErrorMessage(
+                        "Failed to fetch coin data. Error: " + error.toString()
+                    )
+                )
+            );
+    }, [selectedCurrency, coinId, dispatch, setHistoryLog]);
 
     React.useEffect(() => {
         getHistoricalData({
@@ -64,12 +71,12 @@ function CoinPage() {
             .catch((error) =>
                 dispatch(
                     setErrorMessage(
-                        "Historical data is not avaible at the moment. Error: " +
+                        "Historical data is not available at the moment. Error: " +
                         error.toString()
                     )
                 )
             );
-    }, [selectedPeriod, selectedCurrency, coinId]);
+    }, [selectedPeriod, selectedCurrency, coinId, dispatch]);
 
     return (
         <>
@@ -77,18 +84,19 @@ function CoinPage() {
             <Row>
                 <Col md={4}>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
-                    <Converter />
+                    {/* Pass the current coin's ID to the Converter */}
+                    <Converter defaultFromCoin={coinId} />
                 </Col>
                 <Col md={8}>
                     <CoinChart data={historicalData} />
-                    <Row>
+                    <Row className="mt-3">
                         <Col>
                             <ChartPeriods
                                 selectedPeriod={selectedPeriod}
                                 setSelectedPeriod={setSelectedPeriod}
                             />
                         </Col>
-                        <Col>
+                        <Col className="d-flex justify-content-end">
                             <Button onClick={handleShow} variant="primary">
                                 Zoom
                             </Button>

@@ -8,9 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage, setCoinList } from "../services/store";
 
 function ListCoins() {
-
   const dispatch = useDispatch();
-
   const [isLoading, setIsLoading] = React.useState(true);
 
   const selectedCurrency = useSelector((state) => state.selectedCurrency);
@@ -27,12 +25,12 @@ function ListCoins() {
       .catch((error) =>
         dispatch(
           setErrorMessage(
-            "Coin list is not avabile. Error: " + error.toString()
+            "Coin list is not available. Error: " + error.toString()
           )
         )
       )
       .finally(() => setIsLoading(false));
-  }, [selectedCurrency]);
+  }, [selectedCurrency, dispatch]);
 
   if (isLoading)
     return (
@@ -59,7 +57,11 @@ function ListCoins() {
         </thead>
         <tbody>
           {coinList.map((coin) => (
-            <tr key={coin.rank} onClick={() => navigate("/coin/" + coin.id)}>
+            <tr
+              key={coin.id} // Use 'coin.id' instead of 'coin.rank' for uniqueness
+              onClick={() => navigate("/coin/" + coin.id)}
+              style={{ cursor: "pointer" }} // Indicate clickable rows
+            >
               <td>{coin.rank}</td>
               <td>{coin.name}</td>
               <td>
@@ -68,9 +70,9 @@ function ListCoins() {
                   symbol={selectedCurrency.symbol}
                 />
               </td>
-              <td>{coin.quotes[selectedCurrency.name]?.percent_change_1h}</td>
-              <td>{coin.quotes[selectedCurrency.name]?.percent_change_24h}</td>
-              <td>{coin.quotes[selectedCurrency.name]?.percent_change_7d}</td>
+              <td>{coin.quotes[selectedCurrency.name]?.percent_change_1h}%</td>
+              <td>{coin.quotes[selectedCurrency.name]?.percent_change_24h}%</td>
+              <td>{coin.quotes[selectedCurrency.name]?.percent_change_7d}%</td>
               <td>
                 <PriceNumber
                   value={coin.quotes[selectedCurrency.name]?.volume_24h}
@@ -83,7 +85,7 @@ function ListCoins() {
                   symbol={selectedCurrency.symbol}
                 />
               </td>
-              <td>{coin.max_supply}</td>
+              <td>{coin.max_supply || "N/A"}</td>
             </tr>
           ))}
         </tbody>
