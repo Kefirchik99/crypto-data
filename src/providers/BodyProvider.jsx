@@ -1,14 +1,14 @@
-import React from 'react';
-import { getExchangeList } from '../services/api';
+import React from "react";
+import { getExchangeList } from "../services/api";
 
-const BodyContext = React.createContext();
+export const BodyContext = React.createContext();
 
 function BodyProvider({ children }) {
     const [historyLog, setHistoryLog] = React.useState([]);
     const [exchangeList, setExchangeList] = React.useState([]);
 
     React.useEffect(() => {
-        getExchangeList().then(setExchangeList)
+        getExchangeList().then(setExchangeList);
     }, []);
 
     const context = {

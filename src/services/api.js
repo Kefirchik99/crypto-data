@@ -1,6 +1,4 @@
-import { RuleTester } from "eslint";
-
-const apiUrl = 'https://api.coinpaprika.com/v1'
+const apiUrl = "https://api.coinpaprika.com/v1";
 
 export const getCoinList = async (currency) => {
     const params = new URLSearchParams({
@@ -8,11 +6,13 @@ export const getCoinList = async (currency) => {
     });
 
     const response = await fetch(`${apiUrl}/tickers?${params}`);
+
     return await response.json();
 };
 
 export const getGlobalData = async () => {
     const response = await fetch(`${apiUrl}/global`);
+
     return await response.json();
 };
 
@@ -31,14 +31,13 @@ export const getHistoricalData = async ({ id, currency, start, interval }) => {
         quotes: currency,
         start,
         interval,
-
     });
 
     const response = await fetch(`${apiUrl}/tickers/${id}/historical?${params}`);
 
     const data = await response.json();
 
-    if (response.status !== 200 && 'error' in data) {
+    if (response.status !== 200 && "error" in data) {
         throw new Error(data.error);
     }
 
@@ -50,14 +49,18 @@ export const getSearch = async (q) => {
         q,
     });
     const response = await fetch(`${apiUrl}/search/?${params}`);
+
     return await response.json();
 };
 
-
-export const getPriceConverter = async (params) => {
+export const getPriceConverter = async ({
+    baseCurrency,
+    quoteCurrency,
+    amount,
+}) => {
     const queryParams = new URLSearchParams({
         base_currency_id: baseCurrency,
-        qiote_currency_id: quoteCurrency,
+        quote_currency_id: quoteCurrency,
         amount,
     });
 
@@ -65,7 +68,7 @@ export const getPriceConverter = async (params) => {
 
     const data = await response.json();
 
-    if (response.status !== 200 && 'error' in data) {
+    if (response.status !== 200 && "error" in data) {
         throw new Error(data.error);
     }
 
@@ -74,11 +77,12 @@ export const getPriceConverter = async (params) => {
 
 export const getExchangeList = async () => {
     const response = await fetch(`${apiUrl}/exchanges`);
+
     const data = await response.json();
 
-    if (response.status !== 200 && 'error' in data) {
+    if (response.status !== 200 && "error" in data) {
         throw new Error(data.error);
     }
 
     return data;
-}
+};
