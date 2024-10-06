@@ -1,15 +1,16 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { currencies } from '../constants';
-import { Link, useNavigate } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { currencies } from "../constants";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedCurrency } from "../services/store"
+import { setSelectedCurrency } from "../services/store";
 
 function Navigation() {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const selectedCurrency = useSelector((state) => state.selectedCurrency);
@@ -24,7 +25,6 @@ function Navigation() {
         navigate("/search/" + q);
     };
 
-
     return (
         <Navbar expand="lg" className="bg-body-tertiary mb-4">
             <Container fluid>
@@ -33,23 +33,25 @@ function Navigation() {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
+                        style={{ maxHeight: "100px" }}
                         navbarScroll
                     >
-                        <Link to="/" className='nav-link'>
+                        <Link to="/" className="nav-link">
                             Home
                         </Link>
                         <Link to="/exchanges" className="nav-link">
                             Exchanges
                         </Link>
-                        <NavDropdown title="Currencies" id="navbarScrollingDropdown">
-                            {currencies.map(currency => (
-                                <NavDropdown.Item active={selectedCurrency.name === currency.name}
+                        <NavDropdown title="Currency" id="navbarScrollingDropdown">
+                            {currencies.map((currency) => (
+                                <NavDropdown.Item
+                                    active={selectedCurrency.name === currency.name}
                                     key={currency.name}
                                     onClick={() => dispatch(setSelectedCurrency(currency))}
                                 >
                                     {currency.name} {currency.symbol}
-                                </NavDropdown.Item>))}
+                                </NavDropdown.Item>
+                            ))}
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex" onSubmit={handleSubmit}>
@@ -60,11 +62,13 @@ function Navigation() {
                             aria-label="Search"
                             name="q"
                         />
-                        <Button type="submit" variant="outline-success">Search</Button>
+                        <Button type="submit" variant="outline-success">
+                            Search
+                        </Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>
-        </Navbar >
+        </Navbar>
     );
 }
 

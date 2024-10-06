@@ -1,10 +1,10 @@
 import React from "react";
 import CoinPriceSection from "./CoinPriceSection";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import CoinMetrics from "./CoinMetrics";
 import CoinChart from "./CoinChart";
-import ChartPeriods from './ChartPeriods';
+import ChartPeriods from "./ChartPeriods";
 import Button from "react-bootstrap/Button";
 import ChartModal from "./ChartModal";
 import { getCoinById, getHistoricalData } from "../../services/api";
@@ -16,8 +16,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
 
-
 function CoinPage() {
+
     const dispatch = useDispatch();
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
@@ -40,11 +40,10 @@ function CoinPage() {
                 {
                     id: coinId,
                     name: data.name,
-                }
-            ])
-            setCoinData(data)
-        })
-
+                },
+            ]);
+            setCoinData(data);
+        });
     }, [selectedCurrency, coinId]);
 
     React.useEffect(() => {
@@ -53,21 +52,23 @@ function CoinPage() {
             currency: selectedCurrency.name,
             start: selectedPeriod.start(),
             interval: selectedPeriod.interval,
-        }).then(data => {
-            setHistoricalData(
-                data?.map(({ timestamp, ...rest }) => ({
-                    ...rest,
-                    timestamp: moment(timestamp).format(selectedPeriod.format)
-                }))
-            )
         })
-            .catch(error =>
+            .then((data) => {
+                setHistoricalData(
+                    data?.map(({ timestamp, ...rest }) => ({
+                        ...rest,
+                        timestamp: moment(timestamp).format(selectedPeriod.format),
+                    }))
+                );
+            })
+            .catch((error) =>
                 dispatch(
                     setErrorMessage(
-                        "Historical data is not available at the moment. Error: " +
-                        error.toString())
+                        "Historical data is not avaible at the moment. Error: " +
+                        error.toString()
+                    )
                 )
-            )
+            );
     }, [selectedPeriod, selectedCurrency, coinId]);
 
     return (
@@ -75,9 +76,7 @@ function CoinPage() {
             <CoinPriceSection />
             <Row>
                 <Col md={4}>
-                    <CoinMetrics
-                        {...coinData}
-                        currency={selectedCurrency} />
+                    <CoinMetrics {...coinData} currency={selectedCurrency} />
                     <Converter />
                 </Col>
                 <Col md={8}>
@@ -90,7 +89,9 @@ function CoinPage() {
                             />
                         </Col>
                         <Col>
-                            <Button onClick={handleShow} variant="primary">ZOOM IN</Button>
+                            <Button onClick={handleShow} variant="primary">
+                                Zoom
+                            </Button>
                         </Col>
                     </Row>
                 </Col>
@@ -104,6 +105,6 @@ function CoinPage() {
             </ChartModal>
         </>
     );
-};
+}
 
 export default CoinPage;

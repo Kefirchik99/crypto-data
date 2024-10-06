@@ -1,10 +1,11 @@
-import React from 'react';
-import Table from 'react-bootstrap/Table';
-import { getGlobalData } from '../services/api';
-import { BodyContext } from '../providers/BodyProvider';
+import React from "react";
+import Table from "react-bootstrap/Table";
+import { getGlobalData } from "../services/api";
+import { BodyContext } from "../providers/BodyProvider";
 
 function GlobalData() {
-    const [globalData, setGlobalData] = React.useState([]);
+    console.log("GlobalData");
+    const [globalData, setGlobalData] = React.useState({});
 
     const { exchangeList } = React.useContext(BodyContext);
 
@@ -13,19 +14,19 @@ function GlobalData() {
     }, []);
 
     return (
-        <Table >
+        <Table>
             <tbody>
                 <tr>
-                    <td>BTC Dominance:</td>
+                    <td>BTC Dominance</td>
                     <td>{globalData.bitcoin_dominance_percentage} %</td>
                 </tr>
                 <tr>
-                    <td>Vol 24h:</td>
-                    <td>{globalData.volume_24h_usd} $</td>
+                    <td>Vol 24h</td>
+                    <td>{globalData.volume_24h_usd}</td>
                 </tr>
                 <tr>
-                    <td>Market Cap:</td>
-                    <td>{globalData.market_cap_usd} $</td>
+                    <td>Market Cap</td>
+                    <td>{globalData.market_cap_usd}</td>
                 </tr>
                 <tr>
                     <td>Exchanges count</td>
@@ -34,6 +35,6 @@ function GlobalData() {
             </tbody>
         </Table>
     );
-};
+}
 
 export default GlobalData;
