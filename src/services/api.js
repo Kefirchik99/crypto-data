@@ -3,6 +3,7 @@ const apiUrl = "https://api.coinpaprika.com/v1";
 export const getCoinList = async (currency) => {
     const params = new URLSearchParams({
         quotes: currency,
+        limit: 5000,
     });
 
     const response = await fetch(`${apiUrl}/tickers?${params}`);
@@ -86,3 +87,5 @@ export const getExchangeList = async () => {
 
     return data;
 };
+
+
