@@ -21,7 +21,7 @@ function Body(props) {
                 <Route path="/coin/:coinId" element={<CoinPage {...props} />} />
                 <Route path="/search/:q" element={<SearchResult />} />
                 <Route path="/exchanges" element={<ExchangeList />} />
-                <Route path="/compare" element={<CoinComparison />} /> {/* Add this line */}
+                <Route path="/compare" element={<CoinComparison />} />
             </Routes>
 
             <ErrorModal />

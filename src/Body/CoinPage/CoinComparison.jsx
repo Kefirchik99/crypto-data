@@ -1,60 +1,90 @@
 import React, { useState, useEffect } from 'react';
 import { getCoinList, getCoinById } from '../../services/api';
-import { useSelector, useDispatch } from 'react-redux';
-import { setErrorMessage } from '../../services/store';
-import { Form, Button, Row, Col, Table, Spinner } from 'react-bootstrap';
+import { Form, Button, Row, Col, Table, Spinner, Alert } from 'react-bootstrap';
 
 function CoinComparison() {
-    const dispatch = useDispatch();
-    const selectedCurrency = useSelector((state) => state.selectedCurrency);
-
     const [coinList, setCoinList] = useState([]);
     const [coin1Id, setCoin1Id] = useState('');
     const [coin2Id, setCoin2Id] = useState('');
     const [coin1Data, setCoin1Data] = useState(null);
     const [coin2Data, setCoin2Data] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [coinDataCache, setCoinDataCache] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
+
+
+    const defaultCurrency = 'BTC';
+
 
     useEffect(() => {
-        getCoinList(selectedCurrency.name)
+        getCoinList(defaultCurrency)
             .then((data) => {
-                setCoinList(data);
+                if (Array.isArray(data)) {
+                    setCoinList(data);
+                } else {
+                    setErrorMessage('Failed to fetch coin list: Invalid data format.');
+                }
             })
             .catch((error) =>
-                dispatch(
-                    setErrorMessage(
-                        "Failed to fetch coin list. Error: " + error.toString()
-                    )
+                setErrorMessage(
+                    'Failed to fetch coin list. Error: ' + error.toString()
                 )
             );
-    }, [selectedCurrency, dispatch]);
+    }, [defaultCurrency]);
 
     const handleCompare = () => {
         if (coin1Id && coin2Id) {
             setIsLoading(true);
-            Promise.all([
-                getCoinById(coin1Id, selectedCurrency.name),
-                getCoinById(coin2Id, selectedCurrency.name),
-            ])
+            const promises = [];
+
+
+            if (coinDataCache[coin1Id]) {
+                promises.push(Promise.resolve(coinDataCache[coin1Id]));
+            } else {
+                promises.push(
+                    getCoinById(coin1Id, defaultCurrency).then((data) => {
+                        setCoinDataCache((prevCache) => ({
+                            ...prevCache,
+                            [coin1Id]: data,
+                        }));
+                        return data;
+                    })
+                );
+            }
+
+
+            if (coinDataCache[coin2Id]) {
+                promises.push(Promise.resolve(coinDataCache[coin2Id]));
+            } else {
+                promises.push(
+                    getCoinById(coin2Id, defaultCurrency).then((data) => {
+                        setCoinDataCache((prevCache) => ({
+                            ...prevCache,
+                            [coin2Id]: data,
+                        }));
+                        return data;
+                    })
+                );
+            }
+
+            Promise.all(promises)
                 .then(([data1, data2]) => {
                     setCoin1Data(data1);
                     setCoin2Data(data2);
                     setIsLoading(false);
                 })
                 .catch((error) => {
-                    dispatch(
-                        setErrorMessage(
-                            "Failed to fetch coin data. Error: " + error.toString()
-                        )
+                    setErrorMessage(
+                        'Failed to fetch coin data. Error: ' + error.toString()
                     );
                     setIsLoading(false);
                 });
         } else {
-            dispatch(setErrorMessage("Please select two coins to compare."));
+            setErrorMessage('Please select two coins to compare.');
         }
     };
 
-    const getFormattedValue = (value, fractionDigits = 2) => {
+    const getFormattedValue = (value, fractionDigits = 8) => {
         return value !== undefined && value !== null
             ? Number(value).toLocaleString(undefined, {
                 minimumFractionDigits: fractionDigits,
@@ -66,6 +96,11 @@ function CoinComparison() {
     return (
         <div>
             <h2>Compare Cryptocurrencies</h2>
+            {errorMessage && (
+                <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+                    {errorMessage}
+                </Alert>
+            )}
             <Form>
                 <Row>
                     <Col>
@@ -77,11 +112,12 @@ function CoinComparison() {
                                 onChange={(e) => setCoin1Id(e.target.value)}
                             >
                                 <option value="">Select a coin</option>
-                                {coinList.map((coin) => (
-                                    <option key={coin.id} value={coin.id}>
-                                        {coin.name} ({coin.symbol})
-                                    </option>
-                                ))}
+                                {Array.isArray(coinList) &&
+                                    coinList.map((coin) => (
+                                        <option key={coin.id} value={coin.id}>
+                                            {coin.name} ({coin.symbol})
+                                        </option>
+                                    ))}
                             </Form.Control>
                         </Form.Group>
                     </Col>
@@ -94,11 +130,12 @@ function CoinComparison() {
                                 onChange={(e) => setCoin2Id(e.target.value)}
                             >
                                 <option value="">Select a coin</option>
-                                {coinList.map((coin) => (
-                                    <option key={coin.id} value={coin.id}>
-                                        {coin.name} ({coin.symbol})
-                                    </option>
-                                ))}
+                                {Array.isArray(coinList) &&
+                                    coinList.map((coin) => (
+                                        <option key={coin.id} value={coin.id}>
+                                            {coin.name} ({coin.symbol})
+                                        </option>
+                                    ))}
                             </Form.Control>
                         </Form.Group>
                     </Col>
@@ -118,57 +155,55 @@ function CoinComparison() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Price ({selectedCurrency.symbol})</td>
+                            <td>Price (BTC)</td>
                             <td>
                                 {getFormattedValue(
-                                    coin1Data.quotes[selectedCurrency.name]?.price
+                                    coin1Data.quotes[defaultCurrency]?.price
                                 )}
                             </td>
                             <td>
                                 {getFormattedValue(
-                                    coin2Data.quotes[selectedCurrency.name]?.price
+                                    coin2Data.quotes[defaultCurrency]?.price
                                 )}
                             </td>
                         </tr>
                         <tr>
-                            <td>Market Cap ({selectedCurrency.symbol})</td>
+                            <td>Market Cap (BTC)</td>
                             <td>
                                 {getFormattedValue(
-                                    coin1Data.quotes[selectedCurrency.name]?.market_cap,
-                                    0
+                                    coin1Data.quotes[defaultCurrency]?.market_cap,
+                                    8
                                 )}
                             </td>
                             <td>
                                 {getFormattedValue(
-                                    coin2Data.quotes[selectedCurrency.name]?.market_cap,
-                                    0
+                                    coin2Data.quotes[defaultCurrency]?.market_cap,
+                                    8
                                 )}
                             </td>
                         </tr>
-
                         <tr>
                             <td>Rank</td>
                             <td>{coin1Data.rank ?? 'N/A'}</td>
                             <td>{coin2Data.rank ?? 'N/A'}</td>
                         </tr>
-
                         <tr>
-                            <td>Volume 24h ({selectedCurrency.symbol})</td>
+                            <td>Volume 24h (BTC)</td>
                             <td>
                                 {getFormattedValue(
-                                    coin1Data.quotes[selectedCurrency.name]?.volume_24h,
-                                    0
+                                    coin1Data.quotes[defaultCurrency]?.volume_24h,
+                                    8
                                 )}
                             </td>
                             <td>
                                 {getFormattedValue(
-                                    coin2Data.quotes[selectedCurrency.name]?.volume_24h,
-                                    0
+                                    coin2Data.quotes[defaultCurrency]?.volume_24h,
+                                    8
                                 )}
                             </td>
                         </tr>
-                    </tbody>
 
+                    </tbody>
                 </Table>
             )}
         </div>
