@@ -6,12 +6,16 @@ export const BodyContext = React.createContext();
 function BodyProvider({ children }) {
     const [historyLog, setHistoryLog] = React.useState([]);
     const [exchangeList, setExchangeList] = React.useState([]);
+    const [compareList, setCompareList] = React.useState([]);
 
     React.useEffect(() => {
         getExchangeList().then(setExchangeList);
     }, []);
 
     const context = {
+        exchangeList,
+        compareList,
+        setCompareList,
         exchangeList,
         historyLog,
         setHistoryLog,

@@ -17,13 +17,16 @@ import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
 
 function CoinPage() {
+
     const dispatch = useDispatch();
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
     const [historicalData, setHistoricalData] = React.useState([]);
     const [selectedPeriod, setSelectedPeriod] = React.useState(periods[0]);
 
-    const { setHistoryLog } = React.useContext(BodyContext);
+    const { setHistoryLog, setCompareList, compareList } = React.useContext(BodyContext);
+
+
 
     const selectedCurrency = useSelector((state) => state.selectedCurrency);
 
@@ -31,27 +34,20 @@ function CoinPage() {
 
     const handleShow = () => setChartModalShow(true);
     const handleClose = () => setChartModalShow(false);
-
+    const handleOnClick = () => setCompareList([...compareList, coinData]);
+    ;
     React.useEffect(() => {
-        getCoinById(coinId, selectedCurrency.name)
-            .then((data) => {
-                setHistoryLog((prevState) => [
-                    ...prevState.filter((log) => log.id !== coinId),
-                    {
-                        id: coinId,
-                        name: data.name,
-                    },
-                ]);
-                setCoinData(data);
-            })
-            .catch((error) =>
-                dispatch(
-                    setErrorMessage(
-                        "Failed to fetch coin data. Error: " + error.toString()
-                    )
-                )
-            );
-    }, [selectedCurrency, coinId, dispatch, setHistoryLog]);
+        getCoinById(coinId, selectedCurrency.name).then((data) => {
+            setHistoryLog((prevState) => [
+                ...prevState.filter((log) => log.id !== coinId),
+                {
+                    id: coinId,
+                    name: data.name,
+                },
+            ]);
+            setCoinData(data);
+        });
+    }, [selectedCurrency, coinId]);
 
     React.useEffect(() => {
         getHistoricalData({
@@ -71,12 +67,12 @@ function CoinPage() {
             .catch((error) =>
                 dispatch(
                     setErrorMessage(
-                        "Historical data is not available at the moment. Error: " +
+                        "Historical data is not avaible at the moment. Error: " +
                         error.toString()
                     )
                 )
             );
-    }, [selectedPeriod, selectedCurrency, coinId, dispatch]);
+    }, [selectedPeriod, selectedCurrency, coinId]);
 
     return (
         <>
@@ -84,19 +80,19 @@ function CoinPage() {
             <Row>
                 <Col md={4}>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
-                    {/* Pass the current coin's ID to the Converter */}
-                    <Converter defaultFromCoin={coinId} />
+                    <Converter />
+                    <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
                 </Col>
                 <Col md={8}>
                     <CoinChart data={historicalData} />
-                    <Row className="mt-3">
+                    <Row>
                         <Col>
                             <ChartPeriods
                                 selectedPeriod={selectedPeriod}
                                 setSelectedPeriod={setSelectedPeriod}
                             />
                         </Col>
-                        <Col className="d-flex justify-content-end">
+                        <Col>
                             <Button onClick={handleShow} variant="primary">
                                 Zoom
                             </Button>
