@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { BodyContext } from "../providers/BodyProvider";
 
 function HistoryLog() {
-
     const { historyLog, setHistoryLog } = React.useContext(BodyContext);
 
     const handleRemove = (id) => {
@@ -17,10 +16,7 @@ function HistoryLog() {
                     <Link to={`/coin/${log.id}`} style={{ marginRight: '10px' }}>
                         {log.name}
                     </Link>
-                    <button
-                        onClick={() => handleRemove(log.id)}
-
-                    >
+                    <button onClick={() => handleRemove(log.id)}>
                         Remove
                     </button>
                 </li>
