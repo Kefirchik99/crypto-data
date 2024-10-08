@@ -52,7 +52,6 @@ function CoinComparison() {
                 );
             }
 
-
             if (coinDataCache[coin2Id]) {
                 promises.push(Promise.resolve(coinDataCache[coin2Id]));
             } else {
