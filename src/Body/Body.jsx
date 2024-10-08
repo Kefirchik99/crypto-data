@@ -7,7 +7,9 @@ import ErrorModal from "./ErrorModal";
 import BodyProvider from "../providers/BodyProvider";
 import ExchangeList from "./ExchangeList";
 import HistoryLog from "./HistoryLog";
+
 import CoinComparison from "./CoinPage/CoinComparison";
+
 
 function Body(props) {
 

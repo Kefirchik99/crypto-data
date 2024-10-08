@@ -86,6 +86,3 @@ export const getExchangeList = async () => {
     }
 
     return data;
-};
-
-
