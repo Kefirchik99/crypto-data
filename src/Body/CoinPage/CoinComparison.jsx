@@ -37,7 +37,6 @@ function CoinComparison() {
             setIsLoading(true);
             const promises = [];
 
-
             if (coinDataCache[coin1Id]) {
                 promises.push(Promise.resolve(coinDataCache[coin1Id]));
             } else {
