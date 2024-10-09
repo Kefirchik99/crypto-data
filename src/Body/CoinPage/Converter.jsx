@@ -8,80 +8,77 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { getPriceConverter } from "../../services/api";
 import { useSelector } from "react-redux";
+import lodash from "lodash";
 
+const initialState = {
+    from: {
+        amount: 0,
+        coin: "btc-bitcoin",
+    },
+    to: {
+        amount: 0,
+        coin: "eth-ethereum",
+    },
+};
 
-function Converter({ defaultFromCoin }) {
+function Converter() {
 
-    const [values, setValues] = React.useState(() => ({
-        from: {
-            amount: 0,
-            coin: "btc-bitcoin",
-        },
-        to: {
-            amount: 0,
-            coin: defaultFromCoin || "eth-ethereum",
-        },
-    }));
+    const [values, setValues] = React.useState(initialState);
 
     const coinList = useSelector((state) => state.coinList);
 
+    const convertDebounce = React.useCallback(lodash.debounce(async (values) => {
+        const data = await getPriceConverter({
+            baseCurrency: values.from.coin,
+            quoteCurrency: values.to.coin,
+            amount: values.from.amount,
+        });
+
+        setValues({
+            ...values,
+            to: {
+                ...values.to,
+                amount: data.price,
+            },
+        })
+    }, 1000),
+        [])
+
     React.useEffect(() => {
-
-        if (values.from.amount > 0) {
-            (async () => {
-                try {
-                    const data = await getPriceConverter({
-                        baseCurrency: values.from.coin,
-                        quoteCurrency: values.to.coin,
-                        amount: values.from.amount,
-                    });
-
-                    setValues((prevValues) => ({
-                        ...prevValues,
-                        to: {
-                            ...prevValues.to,
-                            amount: data.price,
-                        },
-                    }));
-                } catch (error) {
-                    console.error("Error fetching conversion rate:", error);
-
-                }
-            })();
-        }
+        convertDebounce(values)
     }, [values.from.amount, values.from.coin, values.to.coin]);
 
     const handleClick = () => {
-        setValues((prevValues) => ({
-            from: prevValues.to,
-            to: prevValues.from,
-        }));
+        setValues({
+            from: values.to,
+            to: values.from,
+        });
     };
 
-    const handleOnChange = (event) => {
+    const handleOnChage = (event) => {
         const field = event.target.name;
         const value = event.target.value;
 
-        setValues((prevValues) => ({
-            ...prevValues,
+        setValues({
+            ...values,
             [field]: {
-                ...prevValues[field],
+                ...values[field],
                 amount: value,
             },
-        }));
+        });
     };
 
     const handleOnSelect = (event) => {
         const field = event.target.name;
         const value = event.target.value;
 
-        setValues((prevValues) => ({
-            ...prevValues,
+        setValues({
+            ...values,
             [field]: {
-                ...prevValues[field],
+                ...values[field],
                 coin: value,
             },
-        }));
+        });
     };
 
     if (!coinList.length) return null;
@@ -93,14 +90,13 @@ function Converter({ defaultFromCoin }) {
                     <FloatingLabel controlId="fromInput" label="From">
                         <Form.Control
                             name="from"
-                            type="number" // Changed to number for better UX
+                            type="text"
                             placeholder="0"
                             value={values.from.amount}
-                            onChange={handleOnChange}
-                            min="0"
+                            onChange={handleOnChage}
                         />
                     </FloatingLabel>
-                    <FloatingLabel controlId="fromCoinSelect" label="Coin">
+                    <FloatingLabel controlId="from" label="Coin">
                         <Form.Select
                             value={values.from.coin}
                             name="from"
@@ -115,28 +111,21 @@ function Converter({ defaultFromCoin }) {
                     </FloatingLabel>
                 </InputGroup>
             </Col>
-            <Col md={2} className="d-flex align-items-center justify-content-center">
-                <FontAwesomeIcon
-                    icon={faArrowsRotate}
-                    onClick={handleClick}
-                    style={{ cursor: "pointer" }}
-                    title="Swap"
-                />
+            <Col md={2}>
+                <FontAwesomeIcon icon={faArrowsRotate} onClick={handleClick} />
             </Col>
             <Col md={5}>
                 <InputGroup>
                     <FloatingLabel controlId="toInput" label="To">
                         <Form.Control
                             name="to"
-                            type="number"
+                            type="text"
                             placeholder="0"
                             value={values.to.amount}
-                            onChange={handleOnChange}
-                            min="0"
-                            readOnly // Typically, 'to' amount is calculated
+                            onChange={handleOnChage}
                         />
                     </FloatingLabel>
-                    <FloatingLabel controlId="toCoinSelect" label="Coin">
+                    <FloatingLabel controlId="to" label="Coin">
                         <Form.Select
                             value={values.to.coin}
                             name="to"

@@ -4,7 +4,7 @@ import { getGlobalData } from "../services/api";
 import { BodyContext } from "../providers/BodyProvider";
 
 function GlobalData() {
-    console.log("GlobalData");
+
     const [globalData, setGlobalData] = React.useState({});
 
     const { exchangeList } = React.useContext(BodyContext);

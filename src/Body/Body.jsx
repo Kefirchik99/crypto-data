@@ -7,9 +7,7 @@ import ErrorModal from "./ErrorModal";
 import BodyProvider from "../providers/BodyProvider";
 import ExchangeList from "./ExchangeList";
 import HistoryLog from "./HistoryLog";
-
-import CoinComparison from "./CoinPage/CoinComparison";
-
+import ComparePage from "./ComparePage";
 
 function Body(props) {
 
@@ -17,15 +15,13 @@ function Body(props) {
         <BodyProvider>
             <HistoryLog />
             <GlobalData />
-            <CoinComparison />
             <Routes>
                 <Route path="/" element={<ListCoins {...props} />} />
                 <Route path="/coin/:coinId" element={<CoinPage {...props} />} />
                 <Route path="/search/:q" element={<SearchResult />} />
                 <Route path="/exchanges" element={<ExchangeList />} />
-                <Route path="/compare" element={<CoinComparison />} />
+                <Route path="/compare" element={<ComparePage />} />
             </Routes>
-
             <ErrorModal />
         </BodyProvider>
     );
