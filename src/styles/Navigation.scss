@@ -1,0 +1,80 @@
+// Navigation.scss
+@import './_generalStyles';
+@import './_typography';
+
+.navigation {
+    background-color: $extra-color;
+
+    &__brand {
+        font-size: 1.5rem;
+        color: $accent-color;
+        text-decoration: none;
+    }
+
+    &__nav {
+        display: flex;
+        align-items: center;
+    }
+
+    &__link {
+        margin-right: 1rem;
+        color: $text-color;
+        text-decoration: none;
+
+        &:hover {
+            color: $hover-color;
+            ;
+        }
+    }
+
+    &__dropdown {
+        position: relative;
+
+        &-toggle {
+            background-color: transparent;
+            border: none;
+            color: $text-color;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+
+        &-menu {
+            background-color: $background-color;
+            border: 1px solid $border-color;
+        }
+
+        &-item {
+            color: $text-color;
+
+            &:hover {
+                background-color: $hover-color;
+                color: #fff;
+            }
+        }
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+    }
+
+    &__input {
+        margin-right: 0.5rem;
+        padding: 0.375rem 0.75rem;
+    }
+
+    &__button {
+        padding: 0.375rem 0.75rem;
+        background-color: $button-color;
+        ;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($hover-color, 10%);
+        }
+    }
+}

@@ -8,6 +8,7 @@ import { currencies } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedCurrency } from "../services/store";
+import "../styles/Navigation.scss"
 
 function Navigation() {
 
@@ -25,47 +26,51 @@ function Navigation() {
         navigate("/search/" + q);
     };
 
+
     return (
-        <Navbar expand="lg" className="bg-body-tertiary mb-4">
+        <Navbar expand="lg" className="navigation">
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                <Navbar.Brand href="#" className="navigation__brand">
+                    Navbar scroll
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: "100px" }}
-                        navbarScroll
-                    >
-                        <Link to="/" className="nav-link">
+                    <Nav navbarScroll className="navigation__nav">
+                        <Link to="/" className="navigation__link">
                             Home
                         </Link>
-                        <Link to="/exchanges" className="nav-link">
+                        <Link to="/exchanges" className="navigation__link">
                             Exchanges
                         </Link>
-                        <Link to="/compare" className="nav-link">
+                        <Link to="/compare" className="navigation__link">
                             Compare
                         </Link>
-                        <NavDropdown title="Currency" id="navbarScrollingDropdown">
+                        <NavDropdown
+                            title="Currency"
+                            id="navbarScrollingDropdown"
+                            className="navigation__dropdown"
+                        >
                             {currencies.map((currency) => (
                                 <NavDropdown.Item
                                     active={selectedCurrency.name === currency.name}
                                     key={currency.name}
                                     onClick={() => dispatch(setSelectedCurrency(currency))}
+                                    className="navigation__dropdown-item"
                                 >
                                     {currency.name} {currency.symbol}
                                 </NavDropdown.Item>
                             ))}
                         </NavDropdown>
                     </Nav>
-                    <Form className="d-flex" onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className="navigation__form">
                         <Form.Control
                             type="search"
                             placeholder="Search"
-                            className="me-2"
                             aria-label="Search"
                             name="q"
+                            className="navigation__input"
                         />
-                        <Button type="submit" variant="outline-success">
+                        <Button type="submit" className="navigation__button">
                             Search
                         </Button>
                     </Form>
