@@ -86,7 +86,7 @@ Special thanks to the creators of React, Bootstrap, and other open-source tools 
 
 ## Tech Stack
 
-**Client:** React, React-Bootstrap, SCSS
+**Client:** React(18.3.1), React-Bootstrap(2.10.4), SASS(1.77.6)
 
 **Tools:** Vite, CoinPaprika API
 
