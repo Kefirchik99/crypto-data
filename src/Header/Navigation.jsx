@@ -30,8 +30,8 @@ function Navigation() {
     return (
         <Navbar expand="lg" className="navigation">
             <Container fluid>
-                <Navbar.Brand href="#" className="navigation__brand">
-                    Navbar scroll
+                <Navbar.Brand href="/" className="navigation__brand">
+                    Crypto Olive
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">

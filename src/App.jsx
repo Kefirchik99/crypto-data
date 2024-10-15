@@ -3,7 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Header from './Header';
 import Body from './Body';
 import React from 'react';
-import { currencies } from './constants';
+import Footer from './Footer';
+
 
 
 
@@ -13,6 +14,7 @@ function App() {
     <Container>
       <Header />
       <Body />
+      <Footer />
     </Container>
   );
 }
