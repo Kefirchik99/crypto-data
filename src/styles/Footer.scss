@@ -35,13 +35,13 @@
         margin-bottom: 1.5rem;
 
         a {
-            color: #08a5f4;
+            color: $button-color;
             margin: 0 0.5rem;
             font-size: 1.5rem;
             transition: color 0.3s ease;
 
             &:hover {
-                color: #555;
+                color: $hover-color;
             }
         }
     }
@@ -85,7 +85,7 @@
         }
     }
 
-    /* Dark Mode */
+
     &.dark-mode {
         background-color: #1e1e1e;
         color: #f0f0f0;

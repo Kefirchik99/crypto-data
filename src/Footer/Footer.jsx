@@ -21,7 +21,7 @@ const Footer = ({ theme }) => {
                         </strong>
                     </p>
 
-                    <p>&copy; {new Date().getFullYear()} Yermachine Web Design | Crypto Olive</p>
+                    <p>&copy; {new Date().getFullYear()} Yermachine Web Design Studio | Crypto Olive</p>
                 </div>
             </div>
         </footer>
