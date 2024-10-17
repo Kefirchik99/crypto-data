@@ -1,0 +1,117 @@
+@import './_generalStyles';
+@import './_typography';
+
+.navigation {
+    background-color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid $accent-color;
+
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        font-size: 2.1em;
+        padding-top: 10px;
+        font-family: 'Roboto', serif;
+        color: #C3BF6D;
+        letter-spacing: 0.04em;
+        text-shadow: 1px 1px 3px ($extra-2);
+        -webkit-text-stroke: 1px black;
+        font-weight: bold;
+
+        &:hover {
+            color: $button-color;
+        }
+    }
+
+    &__logo {
+        height: 2.1em;
+        margin-right: 0.5rem;
+    }
+
+    &__nav {
+        margin-top: 8px;
+        display: flex;
+        font-size: 1.3em;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    &__link {
+        margin-right: 1rem;
+        color: $text-color;
+        text-decoration: none;
+
+        &:hover {
+            color: $hover-color;
+        }
+    }
+
+
+    &__dropdown {
+        position: relative;
+
+        .dropdown-toggle {
+
+            border: none;
+            color: $text-color;
+
+            &:hover {
+                color: $hover-color;
+            }
+        }
+
+        .dropdown-menu {
+            background-color: $extra-2;
+            border: 1px solid $secondary-color;
+
+            .dropdown-item {
+                color: $text-color;
+
+                &.active {
+                    background-color: $accent-color;
+                    color: white;
+                }
+
+                &:children {
+                    color: black;
+                    background-color: $background-color;
+                }
+
+                &:selected {
+                    background-color: #C3BF6D;
+                }
+
+                &:hover {
+                    background-color: #C3BF6D;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    &__input {
+        margin-right: 0.5rem;
+        padding: 0.375rem 0.75rem;
+    }
+
+    &__button {
+        padding: 0.375rem 0.75rem;
+        background-color: $button-color;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($hover-color, 10%);
+        }
+    }
+}

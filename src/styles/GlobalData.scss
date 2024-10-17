@@ -1,0 +1,23 @@
+@import './_generalStyles';
+@import './_typography';
+
+.global-data-table {
+    width: 485px;
+    max-width: 600px; // Or adjust as needed
+
+    font-family: $font-stack;
+
+    // General styling for all table cells
+    td {
+        padding: 5px 10px; // Reduce padding for a more compact look
+    }
+
+    // Styling for the header row
+    tr:first-child {
+        td {
+            font-weight: bold; // Make it stand out
+            text-align: left; // Align text to the left
+            padding-bottom: 10px; // Add spacing below the header for visual separation
+        }
+    }
+}
