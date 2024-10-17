@@ -9,6 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedCurrency } from "../services/store";
 import "../styles/Navigation.scss"
+import logo from "../pictures/Olive-Logo.png"
+
+
 
 function Navigation() {
 
@@ -31,6 +34,7 @@ function Navigation() {
         <Navbar expand="lg" className="navigation">
             <Container fluid>
                 <Navbar.Brand href="/" className="navigation__brand">
+                    <img src={logo} alt="Crypto Olive Logo" className="navigation__logo" />
                     Crypto Olive
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />

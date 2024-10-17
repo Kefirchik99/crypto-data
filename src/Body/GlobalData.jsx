@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import { getGlobalData } from "../services/api";
 import { BodyContext } from "../providers/BodyProvider";
+import "../styles/GlobalData.scss"
 
 function GlobalData() {
 
@@ -14,8 +15,12 @@ function GlobalData() {
     }, []);
 
     return (
-        <Table>
+        <Table className="global-data-table">
+
             <tbody>
+                <tr>
+                    <td colSpan="2"><h3>Bitcoin data</h3></td>
+                </tr>
                 <tr>
                     <td>BTC Dominance</td>
                     <td>{globalData.bitcoin_dominance_percentage} %</td>
@@ -33,7 +38,7 @@ function GlobalData() {
                     <td>{exchangeList.length}</td>
                 </tr>
             </tbody>
-        </Table>
+        </Table >
     );
 }
 

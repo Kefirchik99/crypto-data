@@ -10,7 +10,10 @@
 
 
     &__brand {
+        display: flex;
+        align-items: center;
         font-size: 2.1em;
+        padding-top: 10px;
         font-family: 'Roboto', serif;
         color: #C3BF6D;
         letter-spacing: 0.04em;
@@ -18,10 +21,14 @@
         -webkit-text-stroke: 1px black;
         font-weight: bold;
 
-
         &:hover {
             color: $button-color;
         }
+    }
+
+    &__logo {
+        height: 2.1em;
+        margin-right: 0.5rem;
     }
 
     &__nav {
@@ -78,7 +85,7 @@
                 }
 
                 &:hover {
-                    background-color: $accent-color;
+                    background-color: #C3BF6D;
                     color: #fff;
                 }
             }
