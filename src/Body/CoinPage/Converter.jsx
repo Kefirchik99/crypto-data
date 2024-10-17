@@ -1,14 +1,9 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { getPriceConverter } from "../../services/api";
 import { useSelector } from "react-redux";
 import lodash from "lodash";
+import "../../styles/Converter.scss";
+import swaplogo from "../../pictures/Swap-Logo.png";
 
 const initialState = {
     from: {
@@ -22,30 +17,30 @@ const initialState = {
 };
 
 function Converter() {
-
     const [values, setValues] = React.useState(initialState);
-
     const coinList = useSelector((state) => state.coinList);
 
-    const convertDebounce = React.useCallback(lodash.debounce(async (values) => {
-        const data = await getPriceConverter({
-            baseCurrency: values.from.coin,
-            quoteCurrency: values.to.coin,
-            amount: values.from.amount,
-        });
+    const convertDebounce = React.useCallback(
+        lodash.debounce(async (values) => {
+            const data = await getPriceConverter({
+                baseCurrency: values.from.coin,
+                quoteCurrency: values.to.coin,
+                amount: values.from.amount,
+            });
 
-        setValues({
-            ...values,
-            to: {
-                ...values.to,
-                amount: data.price,
-            },
-        })
-    }, 1000),
-        [])
+            setValues({
+                ...values,
+                to: {
+                    ...values.to,
+                    amount: data.price,
+                },
+            });
+        }, 1000),
+        []
+    );
 
     React.useEffect(() => {
-        convertDebounce(values)
+        convertDebounce(values);
     }, [values.from.amount, values.from.coin, values.to.coin]);
 
     const handleClick = () => {
@@ -55,7 +50,7 @@ function Converter() {
         });
     };
 
-    const handleOnChage = (event) => {
+    const handleOnChange = (event) => {
         const field = event.target.name;
         const value = event.target.value;
 
@@ -84,63 +79,71 @@ function Converter() {
     if (!coinList.length) return null;
 
     return (
-        <Row className="g-2">
-            <Col md={5}>
-                <InputGroup>
-                    <FloatingLabel controlId="fromInput" label="From">
-                        <Form.Control
-                            name="from"
-                            type="text"
-                            placeholder="0"
-                            value={values.from.amount}
-                            onChange={handleOnChage}
-                        />
-                    </FloatingLabel>
-                    <FloatingLabel controlId="from" label="Coin">
-                        <Form.Select
-                            value={values.from.coin}
-                            name="from"
-                            onChange={handleOnSelect}
-                        >
-                            {coinList.map((coin) => (
-                                <option key={coin.id} value={coin.id}>
-                                    {coin.name}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
-                </InputGroup>
-            </Col>
-            <Col md={2}>
-                <FontAwesomeIcon icon={faArrowsRotate} onClick={handleClick} />
-            </Col>
-            <Col md={5}>
-                <InputGroup>
-                    <FloatingLabel controlId="toInput" label="To">
-                        <Form.Control
-                            name="to"
-                            type="text"
-                            placeholder="0"
-                            value={values.to.amount}
-                            onChange={handleOnChage}
-                        />
-                    </FloatingLabel>
-                    <FloatingLabel controlId="to" label="Coin">
-                        <Form.Select
-                            value={values.to.coin}
-                            name="to"
-                            onChange={handleOnSelect}
-                        >
-                            {coinList.map((coin) => (
-                                <option key={coin.id} value={coin.id}>
-                                    {coin.name}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
-                </InputGroup>
-            </Col>
-        </Row>
+        <div className="converter-container">
+            <div className="converter-input">
+                <div className="input-group">
+                    <label className="input-label" htmlFor="fromInput">From amount</label>
+                    <input
+                        id="fromInput"
+                        name="from"
+                        type="text"
+                        className="input-field"
+                        placeholder="0"
+                        value={values.from.amount}
+                        onChange={handleOnChange}
+                    />
+                    <label className="input-label" htmlFor="fromSelect">Coin</label>
+                    <select
+                        id="fromSelect"
+                        name="from"
+                        className="select-field"
+                        value={values.from.coin}
+                        onChange={handleOnSelect}
+                    >
+                        {coinList.map((coin) => (
+                            <option key={coin.id} value={coin.id}>
+                                {coin.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <div className="converter-swap-button">
+                <button className="swap-button" onClick={handleClick}>
+                    <img src={swaplogo} alt="Crypto Olive Logo" className="navigation__logo" />
+                </button>
+            </div>
+
+            <div className="converter-input">
+                <div className="input-group">
+                    <label className="input-label" htmlFor="toInput">To amount</label>
+                    <input
+                        id="toInput"
+                        name="to"
+                        type="text"
+                        className="input-field"
+                        placeholder="0"
+                        value={values.to.amount}
+                        onChange={handleOnChange}
+                    />
+                    <label className="input-label" htmlFor="toSelect">Coin</label>
+                    <select
+                        id="toSelect"
+                        name="to"
+                        className="select-field"
+                        value={values.to.coin}
+                        onChange={handleOnSelect}
+                    >
+                        {coinList.map((coin) => (
+                            <option key={coin.id} value={coin.id}>
+                                {coin.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </div>
     );
 }
 

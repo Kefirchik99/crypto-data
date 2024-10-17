@@ -16,7 +16,6 @@ function BodyProvider({ children }) {
         exchangeList,
         compareList,
         setCompareList,
-        exchangeList,
         historyLog,
         setHistoryLog,
     };
