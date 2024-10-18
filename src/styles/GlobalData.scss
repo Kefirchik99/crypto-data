@@ -22,8 +22,7 @@
 
 .global-data-container {
     padding: 16px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .global-data-table {
@@ -31,7 +30,7 @@
     border-collapse: collapse;
     font-family: $font-stack;
     color: $text-color;
-    background-color: $primary-color;
+
 
     th,
     td {
@@ -42,6 +41,7 @@
     tr:first-child td {
         font-weight: bold;
         text-align: center;
-        padding-bottom: 2px;
+        padding-bottom: 1px;
+        background-color: ffff;
     }
 }

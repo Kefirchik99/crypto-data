@@ -2,8 +2,9 @@ import React from "react";
 import { getGlobalData } from "../services/api";
 import { BodyContext } from "../providers/BodyProvider";
 import Converter from "../Body/CoinPage/Converter";
+import Table from 'react-bootstrap/Table';
 import "../styles/GlobalData.scss";
-import "../styles/Converter.scss"; // Import styles for Converter
+import "../styles/Converter.scss";
 
 function GlobalData() {
     const [globalData, setGlobalData] = React.useState({});
@@ -16,7 +17,8 @@ function GlobalData() {
     return (
         <div className="global-converter-container">
             <div className="global-data">
-                <table className="global-data-table">
+                <Table className="global-data-table table table-striped table-bordered table-hover">
+
                     <tbody>
                         <tr>
                             <td colSpan="2">
@@ -40,7 +42,7 @@ function GlobalData() {
                             <td>{exchangeList.length}</td>
                         </tr>
                     </tbody>
-                </table>
+                </Table>
             </div>
             <div className="converter">
                 <Converter />

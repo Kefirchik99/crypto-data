@@ -20,7 +20,7 @@ function ListCoins() {
     setIsLoading(true);
     getCoinList(selectedCurrency.name)
       .then((data) => {
-        dispatch(setCoinList(data.slice(0, 100)));
+        dispatch(setCoinList(data.slice(0, 50)));
       })
       .catch((error) =>
         dispatch(
@@ -58,9 +58,9 @@ function ListCoins() {
         <tbody>
           {coinList.map((coin) => (
             <tr
-              key={coin.id} // Use 'coin.id' instead of 'coin.rank' for uniqueness
+              key={coin.id}
               onClick={() => navigate("/coin/" + coin.id)}
-              style={{ cursor: "pointer" }} // Indicate clickable rows
+              style={{ cursor: "pointer" }}
             >
               <td>{coin.rank}</td>
               <td>{coin.name}</td>

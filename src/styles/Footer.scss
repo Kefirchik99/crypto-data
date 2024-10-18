@@ -2,7 +2,7 @@
 @import './_typography';
 
 .footer {
-    background-color: #f0f0f0;
+    background-color: $primary-color;
     color: #000;
     text-align: center;
     font-family: $font-stack;
@@ -46,40 +46,41 @@
         }
     }
 
-    &-subscribe {
-        form {
-            display: inline-flex;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
+    // &-subscribe {
+    //     form {
+    //         display: inline-flex;
+    //         justify-content: center;
+    //         margin-bottom: 1.5rem;
+    //     }
 
-        input {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 2px solid #000;
-            border-radius: 0.25rem;
-            margin-right: 0.5rem;
-        }
+    //     input {
+    //         padding: 0.5rem;
+    //         font-size: 1rem;
+    //         border: 2px solid #000;
+    //         border-radius: 0.25rem;
+    //         margin-right: 0.5rem;
+    //     }
 
-        button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #000;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+    //     button {
+    //         padding: 0.5rem 1rem;
+    //         font-size: 1rem;
+    //         color: #fff;
+    //         background-color: #000;
+    //         border: none;
+    //         border-radius: 0.25rem;
+    //         cursor: pointer;
+    //         transition: background-color 0.3s ease;
 
-            &:hover {
-                background-color: #333;
-            }
-        }
-    }
+    //         &:hover {
+    //             background-color: #333;
+    //         }
+    //     }
+    // }
 
     &-info {
         font-size: 0.875rem;
         color: $text-color;
+        padding-bottom: 5px;
 
         p {
             margin: 0.5rem 0;
