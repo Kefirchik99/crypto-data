@@ -1,23 +1,47 @@
 @import './_generalStyles';
 @import './_typography';
 
+.global-converter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: 20px 0;
+
+}
+
+.global-data,
+.converter {
+    flex: 1;
+    max-width: 500px;
+}
+
+.global-data {
+    margin-right: 10px;
+
+}
+
+.global-data-container {
+    padding: 16px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .global-data-table {
-    width: 485px;
-    max-width: 600px; // Or adjust as needed
-
+    width: 100%;
+    border-collapse: collapse;
     font-family: $font-stack;
+    color: $text-color;
 
-    // General styling for all table cells
+
+    th,
     td {
-        padding: 5px 10px; // Reduce padding for a more compact look
+        padding: 5px 10px;
+        border: 1px solid $extra-2;
     }
 
-    // Styling for the header row
-    tr:first-child {
-        td {
-            font-weight: bold; // Make it stand out
-            text-align: left; // Align text to the left
-            padding-bottom: 10px; // Add spacing below the header for visual separation
-        }
+    tr:first-child td {
+        font-weight: bold;
+        text-align: center;
+        padding-bottom: 1px;
+        background-color: ffff;
     }
 }

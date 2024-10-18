@@ -64,14 +64,14 @@
         }
 
         .dropdown-menu {
-            background-color: $extra-2;
+            background-color: #ffff;
             border: 1px solid $secondary-color;
 
             .dropdown-item {
                 color: $text-color;
 
                 &.active {
-                    background-color: $accent-color;
+                    background-color: $button-color;
                     color: white;
                 }
 
@@ -81,11 +81,11 @@
                 }
 
                 &:selected {
-                    background-color: #C3BF6D;
+                    // background-color: #C3BF6D;
                 }
 
                 &:hover {
-                    background-color: #C3BF6D;
+                    background-color: $hover-color;
                     color: #fff;
                 }
             }

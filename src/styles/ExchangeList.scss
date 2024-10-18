@@ -1,0 +1,23 @@
+@import './_generalStyles';
+@import './_typography';
+
+
+.exchange-list {
+    a {
+        color: $link-text-color;
+        text-decoration: none;
+
+        &:visited {
+            color: $link-visited-color;
+        }
+
+        &:hover {
+            color: $link-hover-color;
+            text-decoration: underline;
+        }
+
+        &:active {
+            color: $link-active-color;
+        }
+    }
+}

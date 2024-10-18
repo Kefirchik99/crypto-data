@@ -11,7 +11,6 @@ import { getCoinById, getHistoricalData } from "../../services/api";
 import { periods } from "./constants";
 import moment from "moment";
 import { useParams } from "react-router-dom";
-import Converter from "./Converter";
 import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
@@ -80,7 +79,7 @@ function CoinPage() {
             <Row>
                 <Col md={4}>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
-                    <Converter />
+
                     <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
                 </Col>
                 <Col md={8}>

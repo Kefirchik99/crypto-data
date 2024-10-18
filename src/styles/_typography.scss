@@ -2,7 +2,7 @@ body {
     font-family: $font-stack;
     font-size: $base-font-size;
     color: $text-color;
-    background-color: $background-color;
+    background-color: $main-background;
     line-height: 1.6;
 }
 
@@ -23,10 +23,11 @@ p {
 }
 
 a {
-    color: $primary-color;
+    color: $text-color;
     text-decoration: none;
 
     &:hover {
         text-decoration: underline;
+        color: $hover-color;
     }
 }
