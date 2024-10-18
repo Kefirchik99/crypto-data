@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BodyContext } from "../providers/BodyProvider";
+import removeIcon from "../pictures/Remove-Logo.png";
+import "../styles/HistoryLog.scss"
 
 function HistoryLog() {
     const { historyLog, setHistoryLog } = React.useContext(BodyContext);
@@ -10,18 +12,21 @@ function HistoryLog() {
     };
 
     return (
-        <ul>
+        <div className="history-log-container">
             {historyLog.map((log) => (
-                <li key={log.id} style={{ display: 'flex', alignItems: 'center' }}>
-                    <Link to={`/coin/${log.id}`} style={{ marginRight: '10px' }}>
+                <div key={log.id} className="history-log-item">
+                    <Link to={`/coin/${log.id}`} className="coin-name">
                         {log.name}
                     </Link>
-                    <button onClick={() => handleRemove(log.id)}>
-                        Remove
-                    </button>
-                </li>
+                    <img
+                        src={removeIcon}
+                        alt="Remove"
+                        onClick={() => handleRemove(log.id)}
+                        className="remove-icon"
+                    />
+                </div>
             ))}
-        </ul>
+        </div>
     );
 }
 
