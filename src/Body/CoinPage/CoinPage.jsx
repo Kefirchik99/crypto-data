@@ -78,8 +78,6 @@ function CoinPage() {
                 <Col md={4}>
                     <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
-
-
                 </Col>
                 <Col md={8}>
                     <CoinChart data={historicalData} />
