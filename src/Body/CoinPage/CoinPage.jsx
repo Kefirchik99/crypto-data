@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
+import "../../styles/_typography.scss"
 
 function CoinPage() {
 
@@ -75,9 +76,10 @@ function CoinPage() {
             <CoinPriceSection />
             <Row>
                 <Col md={4}>
+                    <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
 
-                    <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
+
                 </Col>
                 <Col md={8}>
                     <CoinChart data={historicalData} />

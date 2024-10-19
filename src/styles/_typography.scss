@@ -1,3 +1,5 @@
+@import './_generalStyles';
+
 body {
     font-family: $font-stack;
     font-size: $base-font-size;
@@ -36,4 +38,20 @@ a {
     font-size: 1.3rem;
     background-color: $alert-color;
     border: 1px solid $accent-color;
+}
+
+button,
+.btn {
+    background-color: $button-color;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($hover-color, 10%);
+    }
+
+    &.active.btn-secondary {
+        background-color: $accent-color;
+    }
 }
