@@ -2,14 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BodyContext } from "../providers/BodyProvider";
 import removeIcon from "../pictures/Remove-Logo.png";
-import "../styles/HistoryLog.scss"
+import "../styles/HistoryLog.scss";
 
 function HistoryLog() {
-    const { historyLog, setHistoryLog } = React.useContext(BodyContext);
-
-    const handleRemove = (id) => {
-        setHistoryLog((prevHistory) => prevHistory.filter((log) => log.id !== id));
-    };
+    const { historyLog, removeCoin } = React.useContext(BodyContext);
 
     return (
         <div className="history-log-container">
@@ -21,7 +17,7 @@ function HistoryLog() {
                     <img
                         src={removeIcon}
                         alt="Remove"
-                        onClick={() => handleRemove(log.id)}
+                        onClick={() => removeCoin(log.id)}
                         className="remove-icon"
                     />
                 </div>

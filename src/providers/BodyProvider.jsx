@@ -12,12 +12,18 @@ function BodyProvider({ children }) {
         getExchangeList().then(setExchangeList);
     }, []);
 
+    const removeCoin = (id) => {
+        setHistoryLog((prevHistory) => prevHistory.filter((log) => log.id !== id));
+        setCompareList((prevCompareList) => prevCompareList.filter((coin) => coin.id !== id));
+    };
+
     const context = {
         exchangeList,
         compareList,
         setCompareList,
         historyLog,
         setHistoryLog,
+        removeCoin,
     };
 
     return (
