@@ -10,13 +10,16 @@ import HistoryLog from "./HistoryLog";
 import ComparePage from "./ComparePage";
 
 function Body(props) {
-
     return (
         <BodyProvider>
             <HistoryLog />
-            <GlobalData />
             <Routes>
-                <Route path="/" element={<ListCoins {...props} />} />
+                <Route path="/" element={
+                    <>
+                        <GlobalData />
+                        <ListCoins {...props} />
+                    </>
+                } />
                 <Route path="/coin/:coinId" element={<CoinPage {...props} />} />
                 <Route path="/search/:q" element={<SearchResult />} />
                 <Route path="/exchanges" element={<ExchangeList />} />
