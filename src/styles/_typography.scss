@@ -15,7 +15,6 @@ h6 {
     font-weight: $heading-font-weight;
 
     margin-bottom: $spacer;
-
 }
 
 p {
@@ -30,4 +29,11 @@ a {
         text-decoration: underline;
         color: $hover-color;
     }
+}
+
+.alert {
+    color: $text-color;
+    font-size: 1.3rem;
+    background-color: $alert-color;
+    border: 1px solid $accent-color;
 }
