@@ -105,13 +105,5 @@
 
     &__button {
         padding: 0.375rem 0.75rem;
-        background-color: $button-color;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-
-        &:hover {
-            background-color: darken($hover-color, 10%);
-        }
     }
 }

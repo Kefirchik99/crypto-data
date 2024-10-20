@@ -52,10 +52,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: none !important;
 }
 
 .swap-button {
-    background: none;
+    background: none !important;
     border: none;
     cursor: pointer;
     font-size: 2em;

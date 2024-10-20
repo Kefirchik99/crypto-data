@@ -15,11 +15,23 @@ function CoinChart({ data }) {
                     bottom: 0,
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timestamp" />
-                <YAxis dataKey="price" />
-                <Tooltip />
-                <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
+                <CartesianGrid stroke="#214f4b" strokeDasharray="5 5" />
+                <XAxis
+                    stroke="#000"
+                    tick={{ fontSize: 16, fontWeight: '500', fill: '#000', fontFamily: 'Roboto' }}
+                    dataKey="timestamp"
+
+                />
+                <YAxis
+                    stroke="#000"
+                    tick={{ fontSize: 18, fontWeight: '500', fill: '#000', fontFamily: 'Roboto' }}
+                    dataKey="price"
+                />
+                <Tooltip
+                    cursor={{ stroke: '#214f4b', strokeWidth: 3, strokeDasharray: '5 5' }}
+                    contentStyle={{ backgroundColor: '#000', color: '#fff', border: '2px solid #3DA35D' }}
+                />
+                <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#A18402" />
             </AreaChart>
         </ResponsiveContainer>
     );
