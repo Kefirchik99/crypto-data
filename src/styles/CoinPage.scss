@@ -1,0 +1,36 @@
+@import './_generalStyles';
+@import './_typography';
+
+.w-100 {
+    margin-top: 4px;
+    margin-bottom: 22px;
+    ;
+}
+
+.chart-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Center align all items horizontally
+    position: relative;
+    margin-bottom: 15px;
+
+}
+
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.period-buttons {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.zoom-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+}

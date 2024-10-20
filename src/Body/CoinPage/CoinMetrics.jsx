@@ -1,9 +1,10 @@
 import Table from 'react-bootstrap/Table';
+import '../../styles/CoinMetrics.scss'
 
 function CoinMetrics({ name, symbol, quotes, currency, total_supply }) {
     return (
         <>
-            <h3>{name} ({symbol}) Metrics</h3>
+            <h3 className="coin-metrics-title">{name} ({symbol}) Metrics</h3>
             <Table striped bordered hover>
                 <tbody>
                     <tr>

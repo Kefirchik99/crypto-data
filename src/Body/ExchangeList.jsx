@@ -13,7 +13,7 @@ function ExchangeList() {
 
     return (
         <div className="exchange-list">
-            <Table striped bordered hover responsive>
+            <Table className='exchange-table' striped bordered hover responsive>
                 <thead>
                     <tr>
                         <th>Rank</th>

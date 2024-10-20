@@ -15,7 +15,7 @@ function CoinChart({ data }) {
                     bottom: 0,
                 }}
             >
-                <CartesianGrid stroke="#214f4b" strokeDasharray="5 5" />
+                <CartesianGrid stroke="#214f4b" strokeDasharray="3 3" />
                 <XAxis
                     stroke="#000"
                     tick={{ fontSize: 16, fontWeight: '500', fill: '#000', fontFamily: 'Roboto' }}

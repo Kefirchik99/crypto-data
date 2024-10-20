@@ -5,6 +5,7 @@ import Alert from "react-bootstrap/Alert";
 import { compareTableData } from "./constants";
 import { useSelector } from "react-redux";
 import lodash from 'lodash';
+import "../styles/ComparePage.scss"
 
 function ComparePage() {
     const selectedCurrency = useSelector((state) => state.selectedCurrency);
@@ -23,7 +24,7 @@ function ComparePage() {
 
     if (!compareList.length) return <Alert>No coins to compare</Alert>;
 
-    return <Table>
+    return <Table className="compare-table">
         <tbody>
             {tableData.map((data, i) => (
                 <tr key={i}>
