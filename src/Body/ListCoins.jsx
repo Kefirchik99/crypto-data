@@ -6,6 +6,7 @@ import PriceNumber from "./PriceNumber";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage, setCoinList } from "../services/store";
+import "../styles/ListCoins.scss"
 
 function ListCoins() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function ListCoins() {
 
   return (
     <>
-      <Table striped bordered hover>
+      <Table className="main-table" striped bordered hover>
         <thead>
           <tr>
             <th>#</th>

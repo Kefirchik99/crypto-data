@@ -1,6 +1,9 @@
 @import './_generalStyles';
 @import './_typography';
 
+.exchange-table {
+    border: 1px solid $extra-2;
+}
 
 .exchange-list {
     a {

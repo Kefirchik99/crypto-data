@@ -21,7 +21,7 @@ function ChartPeriods({ selectedPeriod, setSelectedPeriod }) {
                 >{period.label}
 
                 </Button>
-            ))};
+            ))}
 
         </ButtonGroup>
     )

@@ -1,0 +1,12 @@
+@import './_generalStyles';
+@import './_typography';
+
+.coin-metrics-title {
+    background-color: $primary-color;
+    color: #333;
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}

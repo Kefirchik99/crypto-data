@@ -14,10 +14,11 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setErrorMessage } from "../../services/store";
 import { BodyContext } from "../../providers/BodyProvider";
-import "../../styles/_typography.scss"
+import "../../styles/_typography.scss";
+import "../../styles/CoinPage.scss";
+
 
 function CoinPage() {
-
     const dispatch = useDispatch();
     const [chartModalShow, setChartModalShow] = React.useState(false);
     const [coinData, setCoinData] = React.useState({});
@@ -26,7 +27,6 @@ function CoinPage() {
     const { setHistoryLog, setCompareList, compareList } = React.useContext(BodyContext);
 
     const selectedCurrency = useSelector((state) => state.selectedCurrency);
-
     const { coinId } = useParams();
 
     const handleShow = () => setChartModalShow(true);
@@ -64,7 +64,7 @@ function CoinPage() {
             .catch((error) =>
                 dispatch(
                     setErrorMessage(
-                        "Historical data is not avaible at the moment. Error: " +
+                        "Historical data is not available at the moment. Error: " +
                         error.toString()
                     )
                 )
@@ -73,28 +73,37 @@ function CoinPage() {
 
     return (
         <>
-            <CoinPriceSection />
+
             <Row>
                 <Col md={4}>
-                    <Button className="w-100" onClick={handleOnClick}>Add to compare</Button>
+                    <Button className="w-100" onClick={handleOnClick}>
+                        Add to compare
+                    </Button>
                     <CoinMetrics {...coinData} currency={selectedCurrency} />
+                    {coinData.description && (
+                        <div className="coin-description">
+                            <h5>Description</h5>
+                            <p>{coinData.description}</p>
+                        </div>
+                    )}
                 </Col>
-                <Col md={8}>
+                <Col md={8} className="chart-content">
                     <CoinChart data={historicalData} />
-                    <Row>
-                        <Col>
+                    <Row className="chart-controls">
+                        <Col className="period-buttons">
                             <ChartPeriods
                                 selectedPeriod={selectedPeriod}
                                 setSelectedPeriod={setSelectedPeriod}
                             />
                         </Col>
-                        <Col>
+                        <Col className="zoom-button">
                             <Button onClick={handleShow} variant="primary">
                                 Zoom
                             </Button>
                         </Col>
                     </Row>
                 </Col>
+
             </Row>
             <ChartModal show={chartModalShow} handleClose={handleClose}>
                 <CoinChart data={historicalData} />
