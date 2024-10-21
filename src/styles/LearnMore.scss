@@ -1,0 +1,23 @@
+.global-converter-container {
+    margin: 20px 0;
+    background-color: none;
+}
+
+.crypto-info-image {
+    text-align: center;
+
+    h5 {
+        margin-bottom: 10px;
+    }
+
+    .clickable-image {
+        cursor: pointer;
+        max-width: 40%;
+        height: auto;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
