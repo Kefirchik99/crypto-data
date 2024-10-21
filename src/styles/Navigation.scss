@@ -7,6 +7,8 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 5px solid $accent-color;
+    border-left: 1px solid $extra-2;
+    border-right: 1px solid $extra-2;
 
 
     &__brand {
@@ -22,7 +24,7 @@
         font-weight: bold;
 
         &:hover {
-            color: $button-color;
+            color: $extra-2;
         }
     }
 
