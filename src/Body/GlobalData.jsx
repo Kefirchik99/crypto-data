@@ -5,8 +5,7 @@ import Converter from "../Body/CoinPage/Converter";
 import Table from 'react-bootstrap/Table';
 import "../styles/GlobalData.scss";
 import "../styles/Converter.scss";
-import LearnMore from "./LearnMore";
-import "../styles/LearnMore.scss"
+import Top3Coins from "./Top3Coins";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -50,7 +49,7 @@ function GlobalData() {
                 </Col>
 
                 <Col md={4}>
-                    <LearnMore />
+                    <Top3Coins />
                 </Col>
 
                 <Col md={4}>
