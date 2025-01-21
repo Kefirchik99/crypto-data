@@ -2,7 +2,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { BodyContext } from '../providers/BodyProvider';
-import '../styles/ExchangeList.scss'; // Import the SCSS file
+import '../styles/ExchangeList.scss'; 
 
 function ExchangeList() {
     const { exchangeList } = React.useContext(BodyContext);
